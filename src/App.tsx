@@ -1,5 +1,17 @@
-export default function App() {
+import Header from "@/components/sections/Header";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Footer from "@/components/sections/Footer";
+
+function App() {
   return (
-    <h1 className="text-3xl font-bold text-blue-500">Sipremo funcionando 🚀</h1>
+    <div>
+      <Header />
+      <Hero />
+      <About />
+      <Footer />
+    </div>
   );
 }
+
+export default App;

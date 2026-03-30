@@ -7,19 +7,17 @@ export default function Header() {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
+    const handleScroll = () => setScrollY(window.scrollY);
     handleScroll();
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrolled = scrollY > 40;
 
-  // 🔥 controla o invert progressivo (0 → 100)
-  const invertValue = Math.max(0, 1 - scrollY / 120);
+  // 🔥 progressivo (0 → 1)
+  const progress = Math.min(scrollY / 120, 1);
 
   return (
     <header
@@ -30,69 +28,70 @@ export default function Header() {
           : "bg-transparent",
       )}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-6">
-        {/* LOGO */}
-        <a href="/" className="flex items-center">
-          <img
-            src="/images/sipremo_logo.svg"
-            alt="Sipremo"
-            className="h-28 absolute w-auto transition-all duration-500"
-            style={{
-              filter: `invert(${invertValue})`,
-              opacity: scrolled ? 0.8 : 0.9,
-            }}
-          />
-          <img alt="Sipremo" className="h-10 w-auto opacity-0" />
-        </a>
-
-        {/* NAV */}
-        <nav className="hidden md:flex items-center gap-8 text-sm">
-          {["Sobre", "Impacto", "Contato"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className={cn(
-                "relative group transition-colors duration-300 font-bold",
-                scrolled
-                  ? "text-foreground/80 hover:text-primary"
-                  : "text-white/80 hover:text-white",
-              )}
-            >
-              {item}
-
-              {/* underline animado CORRIGIDO */}
-              <span
-                className={cn(
-                  "absolute left-0 -bottom-1 h-[2px] w-0 transition-all duration-300 group-hover:w-full",
-                  scrolled ? "bg-primary" : "bg-white",
-                )}
+      <div className="max-w-7xl mx-auto px-6">
+        {/* GRID REAL (3 COLUNAS IGUAIS) */}
+        <div className="grid grid-cols-3 items-center h-20">
+          {/* LEFT - LOGO */}
+          <div className="flex items-center">
+            <a href="/" className="flex items-center">
+              <img
+                src="/images/sipremo_logo.svg"
+                alt="Sipremo"
+                className="h-20 w-auto transition-all duration-500"
+                style={{
+                  filter: `invert(${1 - progress})`,
+                }}
               />
             </a>
-          ))}
-        </nav>
+          </div>
 
-        {/* ACTIONS */}
-        <div className="flex items-center gap-3">
-          {/* BOTÃO */}
-          <Button
-            size="sm"
-            className={cn(
-              "transition-all duration-300 border font-bold",
-              scrolled
-                ? "bg-primary text-primary-foreground border-transparent hover:opacity-90"
-                : "bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur",
-            )}
-          >
-            Contato
-          </Button>
+          {/* CENTER - NAV */}
+          <nav className="hidden md:flex justify-center items-center gap-10 text-sm">
+            {["Sobre", "Impacto", "Contato"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className={cn(
+                  "relative group font-medium transition-colors duration-300",
+                  scrolled
+                    ? "text-foreground/80 hover:text-primary"
+                    : "text-white/80 hover:text-white",
+                )}
+              >
+                {item}
 
-          {/* MENU MOBILE */}
-          <Menu
-            className={cn(
-              "md:hidden transition-colors duration-300",
-              scrolled ? "text-foreground" : "text-white",
-            )}
-          />
+                {/* underline elegante */}
+                <span
+                  className={cn(
+                    "absolute left-1/2 -bottom-1 h-[2px] w-0 -translate-x-1/2 transition-all duration-300 group-hover:w-full",
+                    scrolled ? "bg-primary" : "bg-white",
+                  )}
+                />
+              </a>
+            ))}
+          </nav>
+
+          {/* RIGHT - ACTIONS */}
+          <div className="flex items-center justify-end gap-3">
+            <Button
+              size="sm"
+              className={cn(
+                "transition-all duration-300 border font-medium",
+                scrolled
+                  ? "bg-primary text-primary-foreground border-transparent hover:opacity-90"
+                  : "bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur",
+              )}
+            >
+              Contato
+            </Button>
+
+            <Menu
+              className={cn(
+                "md:hidden transition-colors duration-300",
+                scrolled ? "text-foreground" : "text-white",
+              )}
+            />
+          </div>
         </div>
       </div>
     </header>

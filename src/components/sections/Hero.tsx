@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Cpu } from "lucide-react";
 import { motion, type Variants, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -189,6 +191,7 @@ export default function Hero() {
             variants={wobbly}
             className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm mb-6"
           >
+            <Cpu className="w-4 h-4 mr-2 text-white/80" />
             Inteligência climática em tempo real
           </motion.div>
 
@@ -224,16 +227,15 @@ export default function Hero() {
             variants={wobbly}
             className="mt-8 flex flex-col sm:flex-row gap-4"
           >
-            <Button size="lg" className="hover-scale">
-              Falar com especialista
-            </Button>
-
             <Button
-              variant="outline"
-              size="lg"
-              className="hover-scale bg-white/10 border-white/30 text-white hover:bg-white/20"
+              className={cn(
+                "text-2xl p-8 tracking-wide font-bold cursor-pointer",
+                "bg-linear-to-r from-primary to-indigo-500",
+                "text-white shadow-lg shadow-primary/30",
+                "hover:scale-[1.02] hover:shadow-xl transition-all",
+              )}
             >
-              Ver demonstração
+              Conheça a Sipremo
             </Button>
           </motion.div>
         </motion.div>

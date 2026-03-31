@@ -1,54 +1,51 @@
-import { Separator } from "@/components/ui/separator";
 import { Globe, Share2 } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="mt-32 border-t bg-background">
-      <div className="max-w-7xl mx-auto px-6 py-14">
-        <div className="grid gap-12 md:grid-cols-2 items-start">
+    <footer className="relative mt-18 bg-linear-to-b from-background to-secondary-foreground/90 overflow-hidden pt-32">
+      <div className="relative max-w-7xl mx-auto px-6 py-18">
+        <div className="grid gap-14 md:grid-cols-2 items-start">
           {/* BRAND */}
-          <div className="space-y-4">
+          <div className="space-y-5">
             <img
               src="/images/sipremo_logo.svg"
               alt="Sipremo"
-              className="h-20 w-auto"
+              className="h-20 w-auto brightness-0 invert"
             />
 
-            <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
+            <p className="text-sm text-secondary max-w-xs leading-relaxed">
               Tecnologia prevendo o futuro e garantindo o nosso presente.
             </p>
           </div>
 
           {/* SOCIAL */}
-          <div className="space-y-3 md:text-right">
-            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+          <div className="space-y-4 md:text-right">
+            <h4 className="text-sm font-semibold text-secondary uppercase tracking-wide">
               Redes
             </h4>
 
             <div className="flex md:justify-end gap-3">
               <a
                 href="#"
-                className="group flex items-center justify-center w-10 h-10 rounded-full border border-border hover:bg-primary transition-all duration-300 hover:scale-105"
+                className="group flex items-center justify-center w-11 h-11 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:bg-primary transition-all duration-300 hover:scale-105"
               >
-                <Globe className="w-5 h-5 text-muted-foreground group-hover:text-primary-foreground transition" />
+                <Globe className="w-5 h-5 text-secondary/70 group-hover:text-primary-foreground transition" />
               </a>
 
               <a
                 href="#"
-                className="group flex items-center justify-center w-10 h-10 rounded-full border border-border hover:bg-primary transition-all duration-300 hover:scale-105"
+                className="group flex items-center justify-center w-11 h-11 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:bg-primary transition-all duration-300 hover:scale-105"
               >
-                <Share2 className="w-5 h-5 text-muted-foreground group-hover:text-primary-foreground transition" />
+                <Share2 className="w-5 h-5 text-secondary/70 group-hover:text-primary-foreground transition" />
               </a>
             </div>
           </div>
         </div>
 
-        <Separator className="my-10" />
-
         {/* BOTTOM */}
-        <div className="flex flex-col items-center gap-4 text-xs text-muted-foreground text-center">
+        <div className="flex flex-col items-center gap-5 text-xs text-secondary text-center mt-12 sm:mt-2">
           <div>
-            <p className="font-medium text-foreground uppercase tracking-wide mb-1">
+            <p className="font-medium text-secondary uppercase tracking-wide mb-1">
               Presença
             </p>
             <p>Flórida, EUA • São Paulo, Brasil</p>

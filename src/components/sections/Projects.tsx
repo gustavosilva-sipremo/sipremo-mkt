@@ -109,7 +109,7 @@ export default function Solutions() {
   }, [isHovering]);
 
   return (
-    <section className="relative py-28 max-w-7xl mx-auto px-6">
+    <section id="projects" className="relative py-28 max-w-7xl mx-auto px-6">
       {/* BACKGROUND */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-background via-muted/20 to-background" />
 

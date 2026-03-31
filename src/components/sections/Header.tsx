@@ -37,7 +37,7 @@ export default function Header() {
   const progress = Math.min(scrollY / 120, 1);
 
   const navItems = [
-    { label: "Soluções", href: "#solucoes" },
+    { label: "Soluções", href: "#projects" },
     { label: "Valores", href: "#values" },
     { label: "Sobre nós", href: "#about" },
     { label: "Depoimentos", href: "#depoimentos" },
@@ -141,16 +141,32 @@ export default function Header() {
               </div>
 
               {/* CTA */}
-              <Button
-                className={cn(
-                  "hidden text-md py-6 sm:inline-flex font-semibold transition-all duration-300 cursor-pointer",
-                  "bg-linear-to-r from-primary to-indigo-500 text-white",
-                  "shadow-lg shadow-primary/30 hover:shadow-xl hover:scale-[1.03]",
-                  "border-0",
-                )}
-              >
-                Entre em contato
-              </Button>
+              <a href="#contact" className="hidden md:block">
+                <Button
+                  className={cn(
+                    "text-md px-4 py-6 font-semibold tracking-wide",
+                    "bg-primary text-primary-foreground",
+                    "rounded-lg",
+                    "shadow-md shadow-primary/20",
+
+                    // hover / interaction
+                    "hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5",
+                    "active:scale-95 active:shadow-sm",
+
+                    // focus accessibility
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+
+                    // smooth transitions
+                    "transition-all duration-200 ease-in-out",
+
+                    // layout
+                    "inline-flex items-center justify-center gap-2",
+                    "cursor-pointer",
+                  )}
+                >
+                  Entre em Contato
+                </Button>
+              </a>
 
               {/* MOBILE BUTTON */}
               <button
@@ -225,16 +241,32 @@ export default function Header() {
               <div className="border-t border-border/40 my-2" />
 
               {/* CTA */}
-              <Button
-                className={cn(
-                  "mt-auto w-full font-semibold cursor-pointer",
-                  "bg-linear-to-r from-primary to-indigo-500",
-                  "text-white shadow-lg shadow-primary/30",
-                  "hover:scale-[1.02] hover:shadow-xl transition-all",
-                )}
-              >
-                Entre em contato
-              </Button>
+              <a href="#contact">
+                <Button
+                  className={cn(
+                    "text-lg w-full md:text-xl px-8 py-6 font-semibold tracking-wide",
+                    "bg-primary text-primary-foreground",
+                    "rounded-lg",
+                    "shadow-md shadow-primary/20",
+
+                    // hover / interaction
+                    "hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5",
+                    "active:scale-95 active:shadow-sm",
+
+                    // focus accessibility
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+
+                    // smooth transitions
+                    "transition-all duration-200 ease-in-out",
+
+                    // layout
+                    "inline-flex items-center justify-center gap-2",
+                    "cursor-pointer",
+                  )}
+                >
+                  Entre em Contato
+                </Button>
+              </a>
             </motion.div>
           </>
         )}

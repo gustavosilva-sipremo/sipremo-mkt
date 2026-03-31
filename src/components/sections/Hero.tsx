@@ -227,16 +227,32 @@ export default function Hero() {
             variants={wobbly}
             className="mt-8 flex flex-col sm:flex-row gap-4"
           >
-            <Button
-              className={cn(
-                "text-2xl p-8 tracking-wide font-bold cursor-pointer",
-                "bg-linear-to-r from-primary to-indigo-500",
-                "text-white shadow-lg shadow-primary/30",
-                "hover:scale-[1.02] hover:shadow-xl transition-all",
-              )}
-            >
-              Conheça a Sipremo
-            </Button>
+            <a href="#contact">
+              <Button
+                className={cn(
+                  "text-lg md:text-xl px-8 py-6 font-semibold tracking-wide",
+                  "bg-primary text-primary-foreground",
+                  "rounded-lg",
+                  "shadow-md shadow-primary/20",
+
+                  // hover / interaction
+                  "hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5",
+                  "active:scale-95 active:shadow-sm",
+
+                  // focus accessibility
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+
+                  // smooth transitions
+                  "transition-all duration-200 ease-in-out",
+
+                  // layout
+                  "inline-flex items-center justify-center gap-2",
+                  "cursor-pointer",
+                )}
+              >
+                Conheça a Sipremo
+              </Button>
+            </a>
           </motion.div>
         </motion.div>
       </div>

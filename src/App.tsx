@@ -5,12 +5,14 @@ import Footer from "@/components/sections/Footer";
 import Projects from "./components/sections/Projects";
 import Contact from "./components/sections/Contact";
 import Values from "./components/sections/Values";
+import InfiniteLogoCarousel from "./components/others/InfiniteLogoCarousel";
 
 function App() {
   return (
     <div>
       <Header />
       <Hero />
+      <InfiniteLogoCarousel />
       <About />
       <Values />
       <Projects />

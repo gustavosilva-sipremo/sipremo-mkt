@@ -8,7 +8,7 @@ export function Watermark() {
         src={sipremoLogo}
         alt="Sipremo Logo"
         className={clsx(
-          "absolute -left-[50%] w-[200%] top-1/2 transform -translate-y-1/2 opacity-4",
+          "absolute -left-[50%] w-[200%] top-1/2 transform -translate-y-1/2 opacity-4 select-none",
         )}
       />
     </div>

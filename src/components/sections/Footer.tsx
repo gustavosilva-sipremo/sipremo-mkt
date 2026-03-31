@@ -10,7 +10,7 @@ export default function Footer() {
             <img
               src="/images/sipremo_logo.svg"
               alt="Sipremo"
-              className="h-20 w-auto brightness-0 invert"
+              className="h-20 select-none w-auto brightness-0 invert"
             />
 
             <p className="text-sm text-secondary max-w-xs leading-relaxed">

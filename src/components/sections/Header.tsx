@@ -61,7 +61,7 @@ export default function Header() {
               <img
                 src="/images/sipremo_logo.svg"
                 alt="Sipremo"
-                className="h-14 sm:h-16 md:h-20 w-auto transition-all duration-500"
+                className="h-14 select-none sm:h-16 md:h-20 w-auto transition-all duration-500"
                 style={{ filter: `invert(${1 - progress})` }}
               />
             </a>

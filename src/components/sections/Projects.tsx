@@ -82,7 +82,7 @@ function TiltCard({ image, title }: { image: string; title: string }) {
       </div>
 
       {/* Image */}
-      <img src={image} alt={title} className="w-full h-[300px] object-cover" />
+      <img src={image} alt={title} className="w-full select-none h-[300px] object-cover" />
     </motion.div>
   );
 }

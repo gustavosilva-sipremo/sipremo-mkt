@@ -33,21 +33,27 @@ export default function Values() {
         ],
       },
       center: [-55, -14],
-      zoom: 1.5,
+      zoom: 3,
     });
 
     map.on("style.load", () => {
-      // Ativa o modo globo
       map.setProjection({ type: "globe" });
 
-      // Centralização visual do globo
-      map.setBearing(0);
-      map.setPitch(0);
+      // Arco visual
+      map.setPitch(45); // inclinação (principal responsável pelo "arco")
+      map.setBearing(-20); // leve rotação para dar profundidade
+
+      // animação suave inicial (opcional, mas melhora muito UX)
+      map.easeTo({
+        pitch: 45,
+        bearing: -20,
+        duration: 1500,
+      });
 
       (map as any).setFog({
         color: "rgb(5,5,10)",
         "high-color": "rgb(20,20,30)",
-        "horizon-blend": 0.15,
+        "horizon-blend": 0.2,
       });
     });
 
@@ -65,7 +71,8 @@ export default function Values() {
       <div className="text-center mb-14">
         <h3 className="text-2xl md:text-3xl font-semibold">Nossos valores</h3>
         <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-          Decisões inteligentes, proativas e resilientes baseadas em dados climáticos.
+          Decisões inteligentes, proativas e resilientes baseadas em dados
+          climáticos.
         </p>
       </div>
 
@@ -78,7 +85,8 @@ export default function Values() {
               <h4 className="font-semibold">Impacto operacional</h4>
             </div>
             <p className="text-sm text-muted-foreground">
-              A Sipremo permite decisões mais rápidas e precisas com monitoramento contínuo e alertas antecipados.
+              A Sipremo permite decisões mais rápidas e precisas com
+              monitoramento contínuo e alertas antecipados.
             </p>
           </CardContent>
         </Card>
@@ -90,7 +98,8 @@ export default function Values() {
               <h4 className="font-semibold">Impacto financeiro</h4>
             </div>
             <p className="text-sm text-muted-foreground">
-              Redução de custos operacionais e melhor alocação de recursos com maior previsibilidade.
+              Redução de custos operacionais e melhor alocação de recursos com
+              maior previsibilidade.
             </p>
           </CardContent>
         </Card>
@@ -102,7 +111,8 @@ export default function Values() {
               <h4 className="font-semibold">Impacto ESG</h4>
             </div>
             <p className="text-sm text-muted-foreground">
-              Apoio à sustentabilidade, redução de emissões e uso eficiente de recursos naturais.
+              Apoio à sustentabilidade, redução de emissões e uso eficiente de
+              recursos naturais.
             </p>
           </CardContent>
         </Card>
@@ -113,15 +123,19 @@ export default function Values() {
         {/* TEXT */}
         <div className="space-y-5 max-w-2xl">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Em um cenário onde as mudanças climáticas impactam diretamente operações e mercados, a Sipremo conecta dados complexos a decisões estratégicas.
+            Em um cenário onde as mudanças climáticas impactam diretamente
+            operações e mercados, a Sipremo conecta dados complexos a decisões
+            estratégicas.
           </p>
 
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Nossa plataforma ajuda organizações a antecipar riscos e reduzir incertezas com inteligência climática aplicada.
+            Nossa plataforma ajuda organizações a antecipar riscos e reduzir
+            incertezas com inteligência climática aplicada.
           </p>
 
           <p className="text-lg font-medium text-foreground leading-relaxed">
-            Convidamos você a conhecer nossa tecnologia e descobrir como transformar dados em vantagem competitiva.
+            Convidamos você a conhecer nossa tecnologia e descobrir como
+            transformar dados em vantagem competitiva.
           </p>
         </div>
 

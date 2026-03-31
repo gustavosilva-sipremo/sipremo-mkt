@@ -66,7 +66,7 @@ export default function Values() {
   }, []);
 
   return (
-    <section id="values" className="relative py-12 max-w-7xl mx-auto px-6">
+    <section id="values" className="relative pt-12 pb-22 max-w-7xl mx-auto px-6">
       {/* HEADER */}
       <div className="text-center mb-14">
         <h3 className="text-2xl md:text-3xl font-semibold">Nossos valores</h3>

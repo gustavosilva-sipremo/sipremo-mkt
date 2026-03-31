@@ -40,7 +40,7 @@ export default function Header() {
     { label: "Soluções", href: "#projects" },
     { label: "Valores", href: "#values" },
     { label: "Sobre nós", href: "#about" },
-    { label: "Depoimentos", href: "#depoimentos" },
+    { label: "Depoimentos", href: "#testimonials" },
     { label: "Blog", href: "#blog" },
   ];
 

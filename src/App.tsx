@@ -6,6 +6,7 @@ import Projects from "./components/sections/Projects";
 import Contact from "./components/sections/Contact";
 import Values from "./components/sections/Values";
 import InfiniteLogoCarousel from "./components/others/InfiniteLogoCarousel";
+import Testimonials from "./components/sections/Testimonials";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <InfiniteLogoCarousel />
       <About />
       <Values />
+      <Testimonials />
       <Projects />
       <Contact />
       <Footer />

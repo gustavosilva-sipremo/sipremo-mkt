@@ -1,3 +1,5 @@
+import HexField from "@/components/others/HexField";
+import { aboutHexes } from "@/content/hexLayouts";
 import { teamMembers } from "@/content/team";
 import type { TeamMember } from "@/types/content";
 import { Activity, BarChart3, Gauge, ShieldCheck } from "lucide-react";
@@ -40,6 +42,7 @@ export default function About() {
       className="relative mx-auto max-w-7xl overflow-hidden px-4 pt-48 pb-20 sm:px-6"
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-size-[20px_20px]" />
+      <HexField variant="onLight" hexes={aboutHexes} />
       <div className="absolute -top-40 left-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
 
       <div className="mb-16 text-center md:mb-20">

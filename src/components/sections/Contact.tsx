@@ -1,4 +1,6 @@
+import HexField from "@/components/others/HexField";
 import { Watermark } from "@/components/others/Watermark";
+import { contactHexes } from "@/content/hexLayouts";
 import { submitContactForm, type ContactFormPayload } from "@/lib/contact";
 import { validateContactForm } from "@/lib/validateContact";
 import { motion } from "framer-motion";
@@ -47,6 +49,7 @@ export default function Contact() {
   return (
     <section id="contact" className="relative w-full overflow-hidden py-28">
       <div className="absolute inset-0 -z-30 bg-linear-to-b from-background via-muted/20 to-background" />
+      <HexField variant="muted" hexes={contactHexes} className="-z-10" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}

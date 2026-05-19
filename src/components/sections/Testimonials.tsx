@@ -1,3 +1,6 @@
+import HexDecoration from "@/components/others/HexDecoration";
+import HexField from "@/components/others/HexField";
+import { testimonialsSideHexes } from "@/content/hexLayouts";
 import { testimonials, useCases } from "@/content/testimonials";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -6,12 +9,18 @@ export default function Testimonials() {
   const { t } = useTranslation("testimonials");
 
   return (
-    <section id="testimonials" className="relative py-24">
+    <section id="testimonials" className="relative isolate overflow-hidden py-24">
       <div className="absolute inset-0 -z-10 left-1/2 w-screen -translate-x-1/2 bg-[#05060a]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_0)] bg-size-[22px_22px] opacity-40" />
       <div className="absolute -top-40 left-1/2 -z-10 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl overflow-hidden px-6">
+      <HexField
+        variant="onDark"
+        hexes={testimonialsSideHexes}
+        layer="above-background"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="mb-20 text-center">
           <h2 className="mb-5 text-3xl font-bold text-secondary md:text-5xl">{t("title")}</h2>
           <p className="mx-auto max-w-3xl text-secondary/80">{t("subtitle")}</p>
@@ -35,6 +44,19 @@ export default function Testimonials() {
               </div>
             </article>
           ))}
+        </div>
+
+        <div
+          className="pointer-events-none relative -mt-10 mb-6 flex justify-center sm:-mt-14 sm:mb-2"
+          aria-hidden
+        >
+          <HexDecoration
+            variant="onDark"
+            size="lg"
+            animated="none"
+            className="relative opacity-90"
+            strokeWidth={2.5}
+          />
         </div>
 
         <div>

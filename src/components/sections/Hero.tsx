@@ -1,3 +1,5 @@
+import HexDecoration from "@/components/others/HexDecoration";
+import { heroHexes } from "@/content/hexLayouts";
 import { LearnCta } from "@/components/ui/ContactCta";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { Cpu } from "lucide-react";
@@ -7,7 +9,6 @@ import {
   m,
   useScroll,
   useTransform,
-  type MotionValue,
   type Variants,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -34,55 +35,6 @@ const staticVariants: Variants = {
   show: { opacity: 1, y: 0 },
 };
 
-function Hex({
-  className,
-  float = 10,
-  delay = 0,
-  parallaxY,
-}: {
-  className?: string;
-  float?: number;
-  delay?: number;
-  parallaxY: MotionValue<number>;
-}) {
-  return (
-    <m.div
-      style={{ y: parallaxY }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{
-        opacity: 0.2,
-        scale: 1,
-        y: [0, -float, -float * 0.6, -float, 0],
-      }}
-      transition={{
-        duration: 6,
-        ease: [0.42, 0, 0.58, 1],
-        times: [0, 0.25, 0.5, 0.75, 1],
-        repeat: Infinity,
-        repeatType: "mirror",
-        delay,
-      }}
-      className={`absolute ${className}`}
-    >
-      <svg
-        width="90"
-        height="100"
-        viewBox="0 0 87 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="text-white"
-        aria-hidden
-      >
-        <path
-          d="M2.2 26.15L43.5 2.3L84.8 26.15V73.84L43.5 97.69L2.2 73.84V26.15Z"
-          stroke="currentColor"
-          strokeWidth="3"
-        />
-      </svg>
-    </m.div>
-  );
-}
-
 export default function Hero() {
   const { t } = useTranslation("hero");
   const reducedMotion = usePrefersReducedMotion();
@@ -92,12 +44,9 @@ export default function Hero() {
   const [videoReady, setVideoReady] = useState(false);
 
   const { scrollY } = useScroll();
-  const parallax40 = useTransform(scrollY, [0, 1000], [0, 40]);
-  const parallax25 = useTransform(scrollY, [0, 1000], [0, 25]);
-  const parallax30 = useTransform(scrollY, [0, 1000], [0, 30]);
-  const parallax35 = useTransform(scrollY, [0, 1000], [0, 35]);
-  const parallax20 = useTransform(scrollY, [0, 1000], [0, 20]);
-  const parallax45 = useTransform(scrollY, [0, 1000], [0, 45]);
+  const parallaxStrong = useTransform(scrollY, [0, 1000], [0, 40]);
+  const parallaxLight = useTransform(scrollY, [0, 1000], [0, 25]);
+  const parallaxOffsets = [parallaxStrong, parallaxLight, parallaxLight, parallaxStrong];
 
   useEffect(() => {
     const video = videoRef.current;
@@ -150,7 +99,6 @@ export default function Hero() {
       id="hero"
       className="relative isolate flex min-h-svh w-full items-center overflow-hidden bg-slate-950"
     >
-      {/* Dark fallback — always visible until video paints */}
       <div
         className="absolute inset-0 z-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-800"
         aria-hidden
@@ -187,16 +135,20 @@ export default function Hero() {
         <div className="absolute bottom-[10%] right-[10%] h-72 w-72 rounded-full bg-white/10 blur-3xl" />
       </div>
 
-      {!reducedMotion && (
-        <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden>
-          <Hex className="top-[10%] left-[8%]" float={14} parallaxY={parallax40} />
-          <Hex className="top-[35%] left-[6%] scale-75" float={10} delay={0.4} parallaxY={parallax25} />
-          <Hex className="bottom-[20%] left-[12%] scale-90" float={12} delay={0.8} parallaxY={parallax30} />
-          <Hex className="top-[15%] right-[10%]" float={12} delay={0.2} parallaxY={parallax35} />
-          <Hex className="top-[45%] right-[6%] scale-75" float={8} delay={0.6} parallaxY={parallax20} />
-          <Hex className="bottom-[15%] right-[12%] scale-110" float={16} delay={1} parallaxY={parallax45} />
-        </div>
-      )}
+      <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden>
+        {heroHexes.map((hex, index) => (
+          <HexDecoration
+            key={hex.className}
+            variant="onDark"
+            size={hex.size}
+            animated={reducedMotion ? "none" : "float"}
+            float={hex.float}
+            delay={hex.delay}
+            parallaxY={parallaxOffsets[index]}
+            className={hex.className}
+          />
+        ))}
+      </div>
 
       <div className="relative z-20 mx-auto w-full max-w-7xl px-6 md:px-12">
         <LazyMotion features={domAnimation}>

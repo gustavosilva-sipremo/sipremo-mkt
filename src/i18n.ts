@@ -1,6 +1,11 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import {
+  detectBrowserSiteLang,
+  normalizeSiteLang,
+  siteLangToHtmlLang,
+} from "@/lib/locale";
 
 import ptCommon from "@/locales/pt/common.json";
 import ptNav from "@/locales/pt/nav.json";
@@ -49,11 +54,26 @@ export const resources = {
   },
 } as const;
 
+const languageDetector = new LanguageDetector();
+
+languageDetector.addDetector({
+  name: "sipremoBrowser",
+  lookup() {
+    return detectBrowserSiteLang();
+  },
+});
+
+function syncDocumentLang(lng: string) {
+  document.documentElement.lang = siteLangToHtmlLang(normalizeSiteLang(lng));
+}
+
 void i18n
-  .use(LanguageDetector)
+  .use(languageDetector)
   .use(initReactI18next)
   .init({
     resources,
+    supportedLngs: ["pt", "en"],
+    nonExplicitSupportedLngs: true,
     fallbackLng: "pt",
     defaultNS,
     ns: [
@@ -69,16 +89,14 @@ void i18n
     ],
     interpolation: { escapeValue: false },
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["localStorage", "sipremoBrowser"],
       caches: ["localStorage"],
     },
+  })
+  .then(() => {
+    syncDocumentLang(i18n.resolvedLanguage ?? i18n.language);
   });
 
-i18n.on("languageChanged", (lng) => {
-  document.documentElement.lang = lng === "en" ? "en" : "pt-BR";
-});
-
-document.documentElement.lang =
-  i18n.language === "en" ? "en" : "pt-BR";
+i18n.on("languageChanged", syncDocumentLang);
 
 export default i18n;

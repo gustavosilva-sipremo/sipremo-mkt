@@ -1,14 +1,16 @@
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
+import { normalizeSiteLang } from "@/lib/locale";
 import { getSiteUrl } from "@/lib/site";
 
 export function SeoHead() {
   const { t, i18n } = useTranslation("common");
   const siteUrl = getSiteUrl();
-  const isEn = i18n.language === "en";
+  const siteLang = normalizeSiteLang(i18n.resolvedLanguage ?? i18n.language);
+  const isEn = siteLang === "en";
   const locale = isEn ? "en_US" : "pt_BR";
   const altLocale = isEn ? "pt_BR" : "en_US";
-  const langParam = isEn ? "en" : "pt";
+  const langParam = siteLang;
 
   const title = t("seo.title");
   const description = t("seo.description");

@@ -1,6 +1,7 @@
 import { ContactCta } from "@/components/ui/ContactCta";
 import { navItems } from "@/content/nav";
 import { useThrottledScroll } from "@/hooks/useThrottledScroll";
+import { normalizeSiteLang, siteLangFlag, type SiteLang } from "@/lib/locale";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -16,7 +17,7 @@ export default function Header() {
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
 
-  const lang = i18n.language === "en" ? "en" : "pt";
+  const lang = normalizeSiteLang(i18n.resolvedLanguage ?? i18n.language);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -45,7 +46,7 @@ export default function Header() {
   const scrolled = scrollY > 40;
   const progress = Math.min(scrollY / 120, 1);
 
-  const setLanguage = (lng: "pt" | "en") => {
+  const setLanguage = (lng: SiteLang) => {
     void i18n.changeLanguage(lng);
     setLangOpen(false);
   };
@@ -112,7 +113,7 @@ export default function Header() {
                       : "border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white/20",
                   )}
                 >
-                  <span>{lang === "pt" ? "🇧🇷" : "🇺🇸"}</span>
+                  <span aria-hidden>{siteLangFlag[lang]}</span>
                   <ChevronDown size={16} aria-hidden />
                 </button>
 

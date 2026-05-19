@@ -1,0 +1,44 @@
+{
+  "title": "Testimonials & Use Cases",
+  "subtitle": "Organizations use Sipremo to turn climate data into strategic decisions, reducing risks and increasing operational efficiency.",
+  "useCasesTitle": "Experiences & Challenges",
+  "learnMore": "Learn more",
+  "items": {
+    "jefferson-depaula": {
+      "name": "Jefferson de Paula",
+      "role": "CEO at ArcelorMittal",
+      "text": "Sipremo, the startup using AI to monitor our forests, helped reduce our operational costs by 40%."
+    },
+    "filipe-ferreira": {
+      "name": "Filipe Ferreira",
+      "role": "Coordinator at MMI",
+      "text": "The speed and accuracy of alerts are crucial for enabling proactive, strategic action during dam safety crises."
+    }
+  },
+  "useCases": {
+    "saltica": {
+      "title": "Sipremo & Saltica Partnership",
+      "desc": "Sipremo and Saltica announce a partnership to turn climate risk into strategic intelligence, combining AI climate models with financial risk analysis."
+    },
+    "spacemetriks": {
+      "title": "Sipremo & Spacemetriks Partnership",
+      "desc": "Integration of sensors, IoT, drones, and environmental data with climate AI models for real-time field data and predictive analytics."
+    },
+    "insurance-aware": {
+      "title": "InsuranceAware™",
+      "desc": "Advanced predictive analytics for insurance and reinsurance, using AI to forecast environmental risks 1–12 months ahead, including extreme events."
+    },
+    "supply-chain": {
+      "title": "Resilient supply chains",
+      "desc": "Sipremo helps companies avoid operational disruptions with advanced climate forecasts, enabling more efficient planning in critical sectors."
+    },
+    "public-health": {
+      "title": "Public health and climate",
+      "desc": "The platform supports health systems in anticipating climate risks that affect communities, strengthening resilience and prevention."
+    },
+    "smart-city": {
+      "title": "SmartCityWatch™",
+      "desc": "Forecasting technology for smart cities, anticipating floods, heat waves, and storms months in advance."
+    }
+  }
+}

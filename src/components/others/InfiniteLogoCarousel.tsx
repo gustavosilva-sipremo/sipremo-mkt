@@ -1,4 +1,16 @@
+import { logoItems } from "@/content/logos";
 import {
+  Briefcase,
+  Building,
+  Building2,
+  Factory,
+  Globe,
+  Landmark,
+  Warehouse,
+  type LucideIcon,
+} from "lucide-react";
+
+const iconMap: Record<string, LucideIcon> = {
   Building2,
   Building,
   Factory,
@@ -6,50 +18,26 @@ import {
   Warehouse,
   Globe,
   Briefcase,
-} from "lucide-react";
-
-const logos = [
-  { name: "Company A", icon: Building2 },
-  { name: "Company B", icon: Building },
-  { name: "Company C", icon: Factory },
-  { name: "Company D", icon: Landmark },
-  { name: "Company E", icon: Warehouse },
-  { name: "Company F", icon: Globe },
-  { name: "Company G", icon: Briefcase },
-];
+};
 
 export default function InfiniteLogoCarousel() {
-  return (
-    <div className="w-full overflow-hidden py-10 bg-transparent absolute">
-      <div className="relative flex w-max animate-scroll gap-12">
-        {[...logos, ...logos].map((item, index) => {
-          const Icon = item.icon;
+  const items = [...logoItems, ...logoItems];
 
+  return (
+    <div className="absolute w-full overflow-hidden bg-transparent py-10" aria-hidden>
+      <div className="relative flex w-max animate-logo-scroll gap-12">
+        {items.map((item, index) => {
+          const Icon = iconMap[item.icon] ?? Building2;
           return (
             <div
-              key={index}
-              className="flex items-center justify-center min-w-[160px] h-20 rounded-xl border backdrop-blur-md shadow-sm"
+              key={`${item.id}-${index}`}
+              className="flex h-20 min-w-[160px] items-center justify-center rounded-xl border backdrop-blur-md shadow-sm"
             >
-              <Icon className="w-8 h-8 text-muted-foreground" />
+              <Icon className="h-8 w-8 text-muted-foreground" />
             </div>
           );
         })}
       </div>
-
-      <style>{`
-        .animate-scroll {
-          animation: scroll 25s linear infinite;
-        }
-
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
     </div>
   );
 }

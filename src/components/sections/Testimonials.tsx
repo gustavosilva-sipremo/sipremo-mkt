@@ -1,138 +1,79 @@
+import { testimonials, useCases } from "@/content/testimonials";
 import { ArrowRight } from "lucide-react";
-
-const testimonials = [
-  {
-    name: "Jefferson de Paula",
-    role: "CEO da ArcelorMittal",
-    text: "A Sipremo, startup que usa IA para monitorar nossas florestas, ajudou a reduzir em 40% nossos custos operacionais.",
-  },
-  {
-    name: "Filipe Ferreira",
-    role: "Coordenador na MMI",
-    text: "A agilidade e a precisão dos alertas são cruciais para permitir que a empresa tome medidas proativas e estratégicas em crises relacionadas à segurança de barragens.",
-  },
-];
-
-const useCases = [
-  {
-    title: "Parceria Sipremo & Saltica",
-    desc: "A Sipremo e a Saltica anunciam uma parceria para transformar o risco climático em inteligência estratégica. Ao combinar modelos climáticos baseados em IA com análises de risco financeiro, as empresas podem antecipar impactos, aprimorar decisões e fortalecer a resiliência. O clima deixa de ser apenas ambiental e passa a ser um fator econômico determinante.",
-    img: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Parceria Sipremo & Spacemetriks",
-    desc: "Integração de sensores, IoT, drones e dados ambientais com modelos de IA climática. A colaboração combina dados de campo em tempo real com análises preditivas para antecipar riscos, proteger operações e apoiar decisões estratégicas em setores como logística, energia, infraestrutura e cidades.",
-    img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "InsuranceAware™",
-    desc: "Ferramenta avançada para análise preditiva no setor de seguros e resseguros. Vai além de dados históricos, utilizando IA para prever riscos ambientais de 1 a 12 meses, incluindo eventos extremos, permitindo maior precisão na avaliação e gestão de riscos.",
-    img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Cadeias de suprimentos resilientes",
-    desc: "A Sipremo auxilia empresas a evitar interrupções operacionais ao fornecer previsões climáticas avançadas. Desde padrões de precipitação até eventos extremos, possibilita planejamento mais eficiente e continuidade operacional em setores críticos.",
-    img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Saúde pública e clima",
-    desc: "A plataforma apoia sistemas de saúde na antecipação de riscos climáticos que impactam comunidades, como doenças, eventos extremos e segurança alimentar, fortalecendo a resiliência e a prevenção.",
-    img: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "SmartCityWatch™",
-    desc: "Tecnologia de previsão voltada para cidades inteligentes. Permite antecipar eventos como enchentes, ondas de calor e tempestades com meses de antecedência, apoiando governos na proteção de infraestrutura e população.",
-    img: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export default function Testimonials() {
+  const { t } = useTranslation("testimonials");
+
   return (
     <section id="testimonials" className="relative py-24">
-      {/* FULL WIDTH BACKGROUND */}
-      <div className="absolute inset-0 w-screen left-1/2 -translate-x-1/2 -z-10 bg-[#05060a]" />
-
-      {/* GRID PATTERN */}
+      <div className="absolute inset-0 -z-10 left-1/2 w-screen -translate-x-1/2 bg-[#05060a]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_0)] bg-size-[22px_22px] opacity-40" />
+      <div className="absolute -top-40 left-1/2 -z-10 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
 
-      {/* GLOW */}
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary/10 blur-3xl rounded-full -z-10" />
-
-      {/* CONTENT CONTAINER */}
-      <div className="max-w-7xl mx-auto px-6 relative overflow-hidden">
-        {/* HEADER */}
-        <div className="text-center mb-20">
-          <h2 className="text-3xl text-secondary md:text-5xl font-bold mb-5">
-            Depoimentos & Casos de Uso
-          </h2>
-          <p className="text-secondary/80 max-w-3xl mx-auto">
-            Organizações utilizam a Sipremo para transformar dados climáticos em
-            decisões estratégicas, reduzindo riscos e aumentando eficiência
-            operacional.
-          </p>
+      <div className="relative mx-auto max-w-7xl overflow-hidden px-6">
+        <div className="mb-20 text-center">
+          <h2 className="mb-5 text-3xl font-bold text-secondary md:text-5xl">{t("title")}</h2>
+          <p className="mx-auto max-w-3xl text-secondary/80">{t("subtitle")}</p>
         </div>
 
-        {/* TESTIMONIALS */}
-        <div className="grid md:grid-cols-2 gap-10 mb-28">
-          {testimonials.map((item, index) => (
-            <div
-              key={index}
-              className="group relative bg-background backdrop-blur-md border border-border/50 rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300"
+        <div className="mb-28 grid gap-10 md:grid-cols-2">
+          {testimonials.map((item) => (
+            <article
+              key={item.id}
+              className="group relative rounded-2xl border border-border/50 bg-background p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-2xl"
             >
-              {/* hover glow */}
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary/5 blur-xl -z-10" />
-
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-8">
-                “{item.text}”
+              <div className="absolute inset-0 -z-10 rounded-2xl bg-primary/5 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
+              <p className="mb-8 text-sm leading-relaxed text-muted-foreground md:text-base">
+                &ldquo;{t(`items.${item.id}.text`)}&rdquo;
               </p>
-
               <div className="flex items-center justify-between border-t border-border/50 pt-5">
                 <div>
-                  <p className="font-semibold text-sm">{item.name}</p>
-                  <p className="text-xs text-primary">{item.role}</p>
+                  <p className="text-sm font-semibold">{t(`items.${item.id}.name`)}</p>
+                  <p className="text-xs text-primary">{t(`items.${item.id}.role`)}</p>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* USE CASES */}
         <div>
-          <h3 className="text-2xl md:text-3xl text-secondary font-semibold text-center mb-14">
-            Experiências & Desafios
+          <h3 className="mb-14 text-center text-2xl font-semibold text-secondary md:text-3xl">
+            {t("useCasesTitle")}
           </h3>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {useCases.map((item, index) => (
-              <div
-                key={index}
-                className="group bg-background backdrop-blur-md border-border/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col"
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {useCases.map((item) => (
+              <article
+                key={item.id}
+                className="group flex flex-col overflow-hidden rounded-2xl border-border/50 bg-background shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-2xl"
               >
-                {/* IMAGE */}
                 <div className="h-52 overflow-hidden">
                   <img
-                    src={item.img}
-                    alt={item.title}
-                    className="w-full select-none h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src={item.image}
+                    alt={t(`useCases.${item.id}.title`)}
+                    width={400}
+                    height={208}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full select-none object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
-
-                {/* CONTENT */}
-                <div className="p-6 flex flex-col flex-1">
-                  <h4 className="font-semibold text-lg mb-3 group-hover:text-primary transition-colors">
-                    {item.title}
+                <div className="flex flex-1 flex-col p-6">
+                  <h4 className="mb-3 text-lg font-semibold transition-colors group-hover:text-primary">
+                    {t(`useCases.${item.id}.title`)}
                   </h4>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
-                    {item.desc}
+                  <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {t(`useCases.${item.id}.desc`)}
                   </p>
-
-                  <button className="flex items-center gap-2 text-sm text-primary cursor-pointer font-medium hover:gap-3 transition-all w-fit">
-                    Saber mais
-                    <ArrowRight size={16} />
+                  <button
+                    type="button"
+                    className="flex w-fit cursor-pointer items-center gap-2 text-sm font-medium text-primary transition-all hover:gap-3"
+                  >
+                    {t("learnMore")}
+                    <ArrowRight size={16} aria-hidden />
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>

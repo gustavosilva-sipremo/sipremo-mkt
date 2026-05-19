@@ -1,56 +1,30 @@
-import { Gauge, Activity, BarChart3, ShieldCheck } from "lucide-react";
-import "maplibre-gl/dist/maplibre-gl.css";
+import { teamMembers } from "@/content/team";
+import type { TeamMember } from "@/types/content";
+import { Activity, BarChart3, Gauge, ShieldCheck } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-const team = [
-  {
-    name: "Gabriel Sávio",
-    role: "CEO",
-    desc: "Indicado para o prêmio MIT Under 35, palestrante da UNESCO, Empreendedor e Inovador de Destaque na Climate iArea.",
-    img: "/images/gabriel.webp",
-  },
-  {
-    name: "Bruce Ford",
-    role: "Diretor de Operações (CSO)",
-    desc: "22 anos como Presidente da CliDaaS, ex-meteorologista da Marinha dos EUA e líder em clima e previsões de longo prazo.",
-    img: "/images/bruce.webp",
-  },
-  {
-    name: "Jefferson Oliveira",
-    role: "CKO",
-    desc: "Mais de 20 anos de experiência no Corpo de Bombeiros de SP e avaliador de qualidade de projetos para o governo de SP.",
-    img: "/images/jefferson.webp",
-  },
-  {
-    name: "Renato Paes",
-    role: "CTO",
-    desc: "Mestre em Estatística pela UFSCar, ele já economizou mais de 20 milhões de dólares por meio de projetos implementados.",
-    img: "/images/renato.webp",
-  },
-  {
-    name: "Kaushal Chokshi",
-    role: "Conselheiro",
-    desc: "Líder global, empreendedor serial, lançou IPO, estrategista em tecnologia, sustentabilidade e inovação.",
-    img: "/images/kau.webp",
-  },
-];
+function TeamCard({ member }: { member: TeamMember }) {
+  const { t } = useTranslation("about");
+  const key = member.id;
 
-function TeamCard({ member }: any) {
   return (
-    <div className="w-full max-w-sm h-full bg-background/60 backdrop-blur-md border border-border/50 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all">
-      <div className="flex flex-col items-center text-center space-y-4 h-full">
+    <div className="h-full w-full max-w-sm rounded-2xl border border-border/50 bg-background/60 p-6 shadow-sm backdrop-blur-md transition-all hover:shadow-xl">
+      <div className="flex h-full flex-col items-center space-y-4 text-center">
         <img
           src={member.img}
-          alt={member.name}
-          className="w-24 select-none h-24 rounded-full object-cover border border-border/50"
+          alt={t(`team.${key}.name`)}
+          width={96}
+          height={96}
+          loading="lazy"
+          decoding="async"
+          className="h-24 w-24 select-none rounded-full border border-border/50 object-cover"
         />
-
         <div>
-          <h4 className="font-semibold text-lg">{member.name}</h4>
-          <p className="text-sm text-primary">{member.role}</p>
+          <h4 className="text-lg font-semibold">{t(`team.${key}.name`)}</h4>
+          <p className="text-sm text-primary">{t(`team.${key}.role`)}</p>
         </div>
-
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {member.desc}
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {t(`team.${key}.desc`)}
         </p>
       </div>
     </div>
@@ -58,93 +32,69 @@ function TeamCard({ member }: any) {
 }
 
 export default function About() {
+  const { t } = useTranslation("about");
+
   return (
     <section
       id="about"
-      className="relative pb-20 pt-48 max-w-7xl mx-auto px-4 sm:px-6 overflow-hidden"
+      className="relative mx-auto max-w-7xl overflow-hidden px-4 pt-48 pb-20 sm:px-6"
     >
-      {/* BACKGROUND */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-size-[20px_20px]" />
+      <div className="absolute -top-40 left-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
 
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 blur-3xl rounded-full -z-10" />
-
-      {/* INTRO */}
-      <div className="text-center mb-16 md:mb-20">
-        <h2 className="text-3xl md:text-5xl font-bold mb-5">Somos Sipremo</h2>
-        <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-          Tecnologia que prevê o futuro para garantir nosso presente.
+      <div className="mb-16 text-center md:mb-20">
+        <h2 className="mb-5 text-3xl font-bold md:text-5xl">{t("title")}</h2>
+        <p className="mx-auto max-w-3xl text-base text-muted-foreground md:text-lg">
+          {t("tagline")}
         </p>
       </div>
 
-      {/* DESCRIPTION */}
-      <div className="grid md:grid-cols-2 gap-10 md:gap-14 mb-20 md:mb-24 items-start">
-        <div className="space-y-5 text-muted-foreground leading-relaxed text-sm md:text-base">
-          <p>
-            A Sipremo é a primeira plataforma completa de inteligência climática
-            do mundo. Integramos previsões de curto, médio e longo prazo em uma
-            única solução, permitindo decisões estratégicas em diferentes
-            horizontes.
-          </p>
-
-          <p>
-            Nossa tecnologia combina experiência operacional com modelos
-            climáticos avançados, transformando dados complexos em insights
-            acionáveis.
-          </p>
-
-          <p>
-            Auxiliamos organizações a operar com mais segurança, eficiência e
-            previsibilidade diante de cenários climáticos dinâmicos.
-          </p>
+      <div className="mb-20 grid items-start gap-10 md:mb-24 md:grid-cols-2 md:gap-14">
+        <div className="space-y-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p>{t("p1")}</p>
+          <p>{t("p2")}</p>
+          <p>{t("p3")}</p>
         </div>
 
-        <div className="bg-background/60 backdrop-blur-md border border-border/50 rounded-2xl p-6 md:p-7 space-y-5 shadow-sm">
-          <h3 className="font-semibold text-lg flex items-center gap-2">
-            <BarChart3 size={18} />
-            Capacidades da plataforma
+        <div className="space-y-5 rounded-2xl border border-border/50 bg-background/60 p-6 shadow-sm backdrop-blur-md md:p-7">
+          <h3 className="flex items-center gap-2 text-lg font-semibold">
+            <BarChart3 size={18} aria-hidden />
+            {t("capabilitiesTitle")}
           </h3>
-
           <ul className="space-y-4 text-sm text-muted-foreground">
-            <li className="flex gap-3 items-start">
-              <Activity size={16} className="mt-1 text-primary" />
-              Redução de perdas operacionais com previsões de curto prazo
+            <li className="flex items-start gap-3">
+              <Activity size={16} className="mt-1 text-primary" aria-hidden />
+              {t("cap1")}
             </li>
-            <li className="flex gap-3 items-start">
-              <Gauge size={16} className="mt-1 text-primary" />
-              Maior previsibilidade em cadeias produtivas
+            <li className="flex items-start gap-3">
+              <Gauge size={16} className="mt-1 text-primary" aria-hidden />
+              {t("cap2")}
             </li>
-            <li className="flex gap-3 items-start">
-              <ShieldCheck size={16} className="mt-1 text-primary" />
-              Planejamento estratégico e mitigação de riscos climáticos
+            <li className="flex items-start gap-3">
+              <ShieldCheck size={16} className="mt-1 text-primary" aria-hidden />
+              {t("cap3")}
             </li>
           </ul>
         </div>
       </div>
 
-      {/* TEAM */}
       <div className="mb-10">
-        <h3 className="text-2xl md:text-3xl font-semibold text-center mb-3">
-          Nossa Liderança
+        <h3 className="mb-3 text-center text-2xl font-semibold md:text-3xl">
+          {t("teamTitle")}
         </h3>
-
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto text-sm md:text-base">
-          Um time experiente e multidisciplinar focado em inovação, ciência e
-          impacto real.
+        <p className="mx-auto mb-12 max-w-2xl text-center text-sm text-muted-foreground md:text-base">
+          {t("teamSubtitle")}
         </p>
 
-        {/* PIRÂMIDE RESPONSIVA */}
         <div className="flex flex-col items-center gap-10">
-          {/* TOP (CEO + 1) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center w-full max-w-3xl">
-            {team.slice(0, 2).map((member, index) => (
-              <TeamCard key={index} member={member} />
+          <div className="grid w-full max-w-3xl grid-cols-1 justify-items-center gap-8 sm:grid-cols-2">
+            {teamMembers.slice(0, 2).map((member) => (
+              <TeamCard key={member.id} member={member} />
             ))}
           </div>
-
-          {/* BOTTOM (3 membros) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center w-full">
-            {team.slice(2).map((member, index) => (
-              <TeamCard key={index} member={member} />
+          <div className="grid w-full grid-cols-1 justify-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {teamMembers.slice(2).map((member) => (
+              <TeamCard key={member.id} member={member} />
             ))}
           </div>
         </div>

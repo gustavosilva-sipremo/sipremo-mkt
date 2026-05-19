@@ -1,34 +1,64 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
 import { Watermark } from "@/components/others/Watermark";
+import { submitContactForm, type ContactFormPayload } from "@/lib/contact";
+import { validateContactForm } from "@/lib/validateContact";
+import { motion } from "framer-motion";
+import { useState, type FormEvent } from "react";
+import { useTranslation } from "react-i18next";
+
+type FormState = ContactFormPayload;
+
+const initialForm: FormState = {
+  name: "",
+  email: "",
+  company: "",
+  message: "",
+};
 
 export default function Contact() {
-  const [captcha, setCaptcha] = useState("7K9X2");
-  const [inputCaptcha, setInputCaptcha] = useState("");
+  const { t } = useTranslation("contact");
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [honeypot, setHoneypot] = useState("");
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "pending" | "error">("idle");
 
-  function generateCaptcha() {
-    setCaptcha(Math.random().toString(36).substring(2, 7).toUpperCase());
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (honeypot) return;
+
+    const validation = validateContactForm(form, t);
+    setErrors(validation);
+    if (Object.keys(validation).length > 0) return;
+
+    setStatus("loading");
+    try {
+      await submitContactForm({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        company: form.company?.trim() || undefined,
+        message: form.message.trim(),
+      });
+      setStatus("success");
+      setForm(initialForm);
+    } catch {
+      setStatus("pending");
+    }
   }
 
   return (
-    <section id="contact" className="relative w-full py-28 overflow-hidden">
-      {/* BASE BACKGROUND */}
+    <section id="contact" className="relative w-full overflow-hidden py-28">
       <div className="absolute inset-0 -z-30 bg-linear-to-b from-background via-muted/20 to-background" />
 
-      {/* WATERMARK (ANIMATED) */}
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="absolute inset-0 -z-20 pointer-events-none"
+        className="pointer-events-none absolute inset-0 -z-20"
       >
         <Watermark />
       </motion.div>
 
-      {/* CONTENT */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-        {/* LEFT SIDE */}
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 px-6 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -36,116 +66,149 @@ export default function Contact() {
           viewport={{ once: true }}
           className="space-y-6"
         >
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium cursor-pointer">
-            Fale com nosso time
+          <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+            {t("badge")}
           </div>
-
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-            Vamos construir algo juntos
-          </h2>
-
-          <p className="text-muted-foreground leading-relaxed max-w-md">
-            Entre em contato para conhecer melhor a Sipremo, explorar nossas
-            soluções e entender como podemos apoiar sua operação com
-            inteligência climática e tomada de decisão orientada por dados.
-          </p>
-
-          <div className="space-y-3 text-sm text-muted-foreground">
-            <p className="cursor-pointer">✔ Atendimento consultivo</p>
-            <p className="cursor-pointer">✔ Demonstração da plataforma</p>
-            <p className="cursor-pointer">
-              ✔ Soluções sob medida para sua empresa
-            </p>
-          </div>
+          <h2 className="text-4xl leading-tight font-bold md:text-5xl">{t("title")}</h2>
+          <p className="max-w-md leading-relaxed text-muted-foreground">{t("description")}</p>
+          <ul className="space-y-3 text-sm text-muted-foreground">
+            <li>✔ {t("benefit1")}</li>
+            <li>✔ {t("benefit2")}</li>
+            <li>✔ {t("benefit3")}</li>
+          </ul>
         </motion.div>
 
-        {/* RIGHT SIDE - FORM */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="bg-background border border-border rounded-xl shadow-xl p-8 relative backdrop-blur-sm"
+          className="relative rounded-xl border border-border bg-background p-8 shadow-xl backdrop-blur-sm"
         >
-          <form className="space-y-5">
-            {/* Name */}
+          <form
+            className="space-y-5"
+            onSubmit={(e) => {
+              void handleSubmit(e);
+            }}
+            noValidate
+          >
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden
+              className="absolute -left-[9999px] h-0 w-0 opacity-0"
+            />
+
             <div>
-              <label className="text-sm mb-1 block">Nome</label>
+              <label htmlFor="contact-name" className="mb-1 block text-sm">
+                {t("form.name")}
+              </label>
               <input
+                id="contact-name"
+                name="name"
                 type="text"
-                placeholder="Seu nome"
-                className="w-full px-4 py-2 rounded-lg border border-border bg-muted/40 focus:outline-none focus:ring-2 focus:ring-primary cursor-text"
+                autoComplete="name"
+                value={form.name}
+                onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                placeholder={t("form.namePlaceholder")}
+                className="w-full cursor-text rounded-lg border border-border bg-muted/40 px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none"
+                aria-invalid={!!errors.name}
               />
+              {errors.name && (
+                <p className="mt-1 text-xs text-destructive" role="alert">
+                  {errors.name}
+                </p>
+              )}
             </div>
 
-            {/* Email */}
             <div>
-              <label className="text-sm mb-1 block">Email</label>
+              <label htmlFor="contact-email" className="mb-1 block text-sm">
+                {t("form.email")}
+              </label>
               <input
+                id="contact-email"
+                name="email"
                 type="email"
-                placeholder="seu@email.com"
-                className="w-full px-4 py-2 rounded-lg border border-border bg-muted/40 focus:outline-none focus:ring-2 focus:ring-primary cursor-text"
+                autoComplete="email"
+                value={form.email}
+                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                placeholder={t("form.emailPlaceholder")}
+                className="w-full cursor-text rounded-lg border border-border bg-muted/40 px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none"
+                aria-invalid={!!errors.email}
               />
+              {errors.email && (
+                <p className="mt-1 text-xs text-destructive" role="alert">
+                  {errors.email}
+                </p>
+              )}
             </div>
 
-            {/* Company */}
             <div>
-              <label className="text-sm mb-1 block">Empresa</label>
+              <label htmlFor="contact-company" className="mb-1 block text-sm">
+                {t("form.company")}
+              </label>
               <input
+                id="contact-company"
+                name="company"
                 type="text"
-                placeholder="Nome da empresa"
-                className="w-full px-4 py-2 rounded-lg border border-border bg-muted/40 focus:outline-none focus:ring-2 focus:ring-primary cursor-text"
+                autoComplete="organization"
+                value={form.company}
+                onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
+                placeholder={t("form.companyPlaceholder")}
+                className="w-full cursor-text rounded-lg border border-border bg-muted/40 px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none"
               />
             </div>
 
-            {/* Message */}
             <div>
-              <label className="text-sm mb-1 block">Mensagem</label>
+              <label htmlFor="contact-message" className="mb-1 block text-sm">
+                {t("form.message")}
+              </label>
               <textarea
+                id="contact-message"
+                name="message"
                 rows={4}
-                placeholder="Descreva sua necessidade..."
-                className="w-full px-4 py-2 rounded-lg border border-border bg-muted/40 focus:outline-none focus:ring-2 focus:ring-primary resize-none cursor-text"
+                value={form.message}
+                onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                placeholder={t("form.messagePlaceholder")}
+                className="w-full resize-none cursor-text rounded-lg border border-border bg-muted/40 px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none"
+                aria-invalid={!!errors.message}
               />
+              {errors.message && (
+                <p className="mt-1 text-xs text-destructive" role="alert">
+                  {errors.message}
+                </p>
+              )}
             </div>
 
-            {/* CAPTCHA */}
-            <div className="space-y-2">
-              <label className="text-sm block">Captcha</label>
-
-              <div className="flex items-center gap-3">
-                <div className="px-4 py-2 bg-muted/50 border border-border rounded-lg tracking-widest font-mono text-lg select-none cursor-default">
-                  {captcha}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={generateCaptcha}
-                  className="text-xs text-primary hover:underline cursor-pointer"
-                >
-                  Atualizar
-                </button>
-              </div>
-
-              <input
-                type="text"
-                placeholder="Digite o captcha"
-                value={inputCaptcha}
-                onChange={(e) => setInputCaptcha(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg border border-border bg-muted/40 focus:outline-none focus:ring-2 focus:ring-primary cursor-text"
-              />
-            </div>
-
-            {/* Submit */}
             <button
-              type="button"
-              className="w-full py-2 rounded-lg bg-primary text-white font-medium hover:opacity-90 transition cursor-pointer"
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full cursor-pointer rounded-lg bg-primary py-2 font-medium text-white transition hover:opacity-90 disabled:opacity-60"
             >
-              Enviar mensagem
+              {status === "loading" ? t("form.submitting") : t("form.submit")}
             </button>
 
-            <p className="text-xs text-muted-foreground text-center">
-              Seus dados serão usados apenas para retorno de contato.
-            </p>
+            {status === "success" && (
+              <p className="text-center text-sm text-primary" role="status">
+                {t("form.success")}
+              </p>
+            )}
+            {status === "pending" && (
+              <p className="text-center text-sm text-muted-foreground" role="status">
+                {t("form.pendingApi")}
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-center text-sm text-destructive" role="alert">
+                {t("form.error")}
+              </p>
+            )}
+
+            <p className="text-center text-xs text-muted-foreground">{t("form.privacy")}</p>
           </form>
         </motion.div>
       </div>

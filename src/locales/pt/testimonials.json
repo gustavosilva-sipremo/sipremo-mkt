@@ -1,0 +1,44 @@
+{
+  "title": "Depoimentos & Casos de Uso",
+  "subtitle": "Organizações utilizam a Sipremo para transformar dados climáticos em decisões estratégicas, reduzindo riscos e aumentando eficiência operacional.",
+  "useCasesTitle": "Experiências & Desafios",
+  "learnMore": "Saber mais",
+  "items": {
+    "jefferson-depaula": {
+      "name": "Jefferson de Paula",
+      "role": "CEO da ArcelorMittal",
+      "text": "A Sipremo, startup que usa IA para monitorar nossas florestas, ajudou a reduzir em 40% nossos custos operacionais."
+    },
+    "filipe-ferreira": {
+      "name": "Filipe Ferreira",
+      "role": "Coordenador na MMI",
+      "text": "A agilidade e a precisão dos alertas são cruciais para permitir que a empresa tome medidas proativas e estratégicas em crises relacionadas à segurança de barragens."
+    }
+  },
+  "useCases": {
+    "saltica": {
+      "title": "Parceria Sipremo & Saltica",
+      "desc": "A Sipremo e a Saltica anunciam uma parceria para transformar o risco climático em inteligência estratégica. Ao combinar modelos climáticos baseados em IA com análises de risco financeiro, as empresas podem antecipar impactos, aprimorar decisões e fortalecer a resiliência."
+    },
+    "spacemetriks": {
+      "title": "Parceria Sipremo & Spacemetriks",
+      "desc": "Integração de sensores, IoT, drones e dados ambientais com modelos de IA climática. A colaboração combina dados de campo em tempo real com análises preditivas para antecipar riscos e proteger operações."
+    },
+    "insurance-aware": {
+      "title": "InsuranceAware™",
+      "desc": "Ferramenta avançada para análise preditiva no setor de seguros e resseguros, utilizando IA para prever riscos ambientais de 1 a 12 meses, incluindo eventos extremos."
+    },
+    "supply-chain": {
+      "title": "Cadeias de suprimentos resilientes",
+      "desc": "A Sipremo auxilia empresas a evitar interrupções operacionais ao fornecer previsões climáticas avançadas, possibilitando planejamento mais eficiente em setores críticos."
+    },
+    "public-health": {
+      "title": "Saúde pública e clima",
+      "desc": "A plataforma apoia sistemas de saúde na antecipação de riscos climáticos que impactam comunidades, fortalecendo a resiliência e a prevenção."
+    },
+    "smart-city": {
+      "title": "SmartCityWatch™",
+      "desc": "Tecnologia de previsão voltada para cidades inteligentes, antecipando enchentes, ondas de calor e tempestades com meses de antecedência."
+    }
+  }
+}

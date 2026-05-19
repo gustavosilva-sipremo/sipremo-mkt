@@ -1,0 +1,32 @@
+{
+  "badge": "Fale com nosso time",
+  "title": "Vamos construir algo juntos",
+  "description": "Entre em contato para conhecer melhor a Sipremo, explorar nossas soluções e entender como podemos apoiar sua operação com inteligência climática e tomada de decisão orientada por dados.",
+  "benefit1": "Atendimento consultivo",
+  "benefit2": "Demonstração da plataforma",
+  "benefit3": "Soluções sob medida para sua empresa",
+  "form": {
+    "name": "Nome",
+    "namePlaceholder": "Seu nome",
+    "email": "Email",
+    "emailPlaceholder": "seu@email.com",
+    "company": "Empresa",
+    "companyPlaceholder": "Nome da empresa",
+    "message": "Mensagem",
+    "messagePlaceholder": "Descreva sua necessidade...",
+    "submit": "Enviar mensagem",
+    "privacy": "Seus dados serão usados apenas para retorno de contato.",
+    "submitting": "Enviando…",
+    "success": "Mensagem recebida! Entraremos em contato em breve.",
+    "error": "Não foi possível enviar. Tente novamente mais tarde.",
+    "pendingApi": "Integração com API em breve. Sua mensagem foi validada localmente."
+  },
+  "validation": {
+    "nameRequired": "Informe seu nome.",
+    "emailRequired": "Informe um email válido.",
+    "emailInvalid": "Email inválido.",
+    "messageRequired": "Escreva uma mensagem.",
+    "messageMin": "A mensagem deve ter pelo menos 10 caracteres.",
+    "messageMax": "A mensagem deve ter no máximo 2000 caracteres."
+  }
+}

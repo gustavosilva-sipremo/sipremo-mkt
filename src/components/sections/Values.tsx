@@ -1,147 +1,60 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { TrendingUp, DollarSign, Leaf } from "lucide-react";
-import maplibregl from "maplibre-gl";
-import { useEffect, useRef } from "react";
+import { DollarSign, Leaf, TrendingUp } from "lucide-react";
+import { lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
+
+const ValuesMap = lazy(() => import("@/components/sections/ValuesMap"));
 
 export default function Values() {
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-
-  useEffect(() => {
-    if (!mapContainerRef.current || mapRef.current) return;
-
-    const map = new maplibregl.Map({
-      container: mapContainerRef.current,
-      style: {
-        version: 8,
-        sources: {
-          "raster-tiles": {
-            type: "raster",
-            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-            tileSize: 256,
-          },
-        },
-        layers: [
-          {
-            id: "osm-tiles",
-            type: "raster",
-            source: "raster-tiles",
-            paint: {
-              "raster-opacity": 0.5,
-            },
-          },
-        ],
-      },
-      center: [-55, -14],
-      zoom: 3,
-    });
-
-    map.on("style.load", () => {
-      map.setProjection({ type: "globe" });
-
-      // Arco visual
-      map.setPitch(45); // inclinação (principal responsável pelo "arco")
-      map.setBearing(-20); // leve rotação para dar profundidade
-
-      // animação suave inicial (opcional, mas melhora muito UX)
-      map.easeTo({
-        pitch: 45,
-        bearing: -20,
-        duration: 1500,
-      });
-
-      (map as any).setFog({
-        color: "rgb(5,5,10)",
-        "high-color": "rgb(20,20,30)",
-        "horizon-blend": 0.2,
-      });
-    });
-
-    mapRef.current = map;
-
-    return () => {
-      map.remove();
-      mapRef.current = null;
-    };
-  }, []);
+  const { t } = useTranslation("values");
 
   return (
-    <section id="values" className="relative pt-12 pb-22 max-w-7xl mx-auto px-6">
-      {/* HEADER */}
-      <div className="text-center mb-14">
-        <h3 className="text-2xl md:text-3xl font-semibold">Nossos valores</h3>
-        <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-          Decisões inteligentes, proativas e resilientes baseadas em dados
-          climáticos.
-        </p>
+    <section id="values" className="relative mx-auto max-w-7xl px-6 pt-12 pb-22">
+      <div className="mb-14 text-center">
+        <h2 className="text-2xl font-semibold md:text-3xl">{t("title")}</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">{t("subtitle")}</p>
       </div>
 
-      {/* VALUES GRID */}
-      <div className="grid md:grid-cols-3 gap-8 mb-20">
-        <Card className="border-border/50 bg-background/60 backdrop-blur-md hover:shadow-xl transition-all duration-300">
-          <CardContent className="p-7 space-y-4">
+      <div className="mb-20 grid gap-8 md:grid-cols-3">
+        <Card className="border-border/50 bg-background/60 backdrop-blur-md transition-all duration-300 hover:shadow-xl">
+          <CardContent className="space-y-4 p-7">
             <div className="flex items-center gap-2 text-primary">
-              <TrendingUp size={18} />
-              <h4 className="font-semibold">Impacto operacional</h4>
+              <TrendingUp size={18} aria-hidden />
+              <h3 className="font-semibold">{t("operationalTitle")}</h3>
             </div>
-            <p className="text-sm text-muted-foreground">
-              A Sipremo permite decisões mais rápidas e precisas com
-              monitoramento contínuo e alertas antecipados.
-            </p>
+            <p className="text-sm text-muted-foreground">{t("operationalDesc")}</p>
           </CardContent>
         </Card>
-
-        <Card className="border-border/50 bg-background/60 backdrop-blur-md hover:shadow-xl transition-all duration-300">
-          <CardContent className="p-7 space-y-4">
+        <Card className="border-border/50 bg-background/60 backdrop-blur-md transition-all duration-300 hover:shadow-xl">
+          <CardContent className="space-y-4 p-7">
             <div className="flex items-center gap-2 text-primary">
-              <DollarSign size={18} />
-              <h4 className="font-semibold">Impacto financeiro</h4>
+              <DollarSign size={18} aria-hidden />
+              <h3 className="font-semibold">{t("financialTitle")}</h3>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Redução de custos operacionais e melhor alocação de recursos com
-              maior previsibilidade.
-            </p>
+            <p className="text-sm text-muted-foreground">{t("financialDesc")}</p>
           </CardContent>
         </Card>
-
-        <Card className="border-border/50 bg-background/60 backdrop-blur-md hover:shadow-xl transition-all duration-300">
-          <CardContent className="p-7 space-y-4">
+        <Card className="border-border/50 bg-background/60 backdrop-blur-md transition-all duration-300 hover:shadow-xl">
+          <CardContent className="space-y-4 p-7">
             <div className="flex items-center gap-2 text-primary">
-              <Leaf size={18} />
-              <h4 className="font-semibold">Impacto ESG</h4>
+              <Leaf size={18} aria-hidden />
+              <h3 className="font-semibold">{t("esgTitle")}</h3>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Apoio à sustentabilidade, redução de emissões e uso eficiente de
-              recursos naturais.
-            </p>
+            <p className="text-sm text-muted-foreground">{t("esgDesc")}</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* TEXT + MAP */}
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        {/* TEXT */}
-        <div className="space-y-5 max-w-2xl">
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Em um cenário onde as mudanças climáticas impactam diretamente
-            operações e mercados, a Sipremo conecta dados complexos a decisões
-            estratégicas.
-          </p>
-
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Nossa plataforma ajuda organizações a antecipar riscos e reduzir
-            incertezas com inteligência climática aplicada.
-          </p>
-
-          <p className="text-lg font-medium text-foreground leading-relaxed">
-            Convidamos você a conhecer nossa tecnologia e descobrir como
-            transformar dados em vantagem competitiva.
-          </p>
+      <div className="grid items-center gap-12 md:grid-cols-2">
+        <div className="max-w-2xl space-y-5">
+          <p className="text-lg leading-relaxed text-muted-foreground">{t("p1")}</p>
+          <p className="text-lg leading-relaxed text-muted-foreground">{t("p2")}</p>
+          <p className="text-lg font-medium leading-relaxed text-foreground">{t("p3")}</p>
         </div>
-
-        {/* MAP */}
-        <div className="h-[420px] hidden md:block rounded-2xl overflow-hidden border border-border/50 shadow-lg">
-          <div ref={mapContainerRef} className="w-full h-full" />
+        <div className="hidden h-[420px] overflow-hidden rounded-2xl border border-border/50 shadow-lg md:block">
+          <Suspense fallback={<div className="h-full w-full animate-pulse bg-muted" />}>
+            <ValuesMap />
+          </Suspense>
         </div>
       </div>
     </section>

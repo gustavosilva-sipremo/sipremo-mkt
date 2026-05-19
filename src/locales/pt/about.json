@@ -1,0 +1,40 @@
+{
+  "title": "Somos Sipremo",
+  "tagline": "Tecnologia que prevê o futuro para garantir nosso presente.",
+  "p1": "A Sipremo é a primeira plataforma completa de inteligência climática do mundo. Integramos previsões de curto, médio e longo prazo em uma única solução, permitindo decisões estratégicas em diferentes horizontes.",
+  "p2": "Nossa tecnologia combina experiência operacional com modelos climáticos avançados, transformando dados complexos em insights acionáveis.",
+  "p3": "Auxiliamos organizações a operar com mais segurança, eficiência e previsibilidade diante de cenários climáticos dinâmicos.",
+  "capabilitiesTitle": "Capacidades da plataforma",
+  "cap1": "Redução de perdas operacionais com previsões de curto prazo",
+  "cap2": "Maior previsibilidade em cadeias produtivas",
+  "cap3": "Planejamento estratégico e mitigação de riscos climáticos",
+  "teamTitle": "Nossa Liderança",
+  "teamSubtitle": "Um time experiente e multidisciplinar focado em inovação, ciência e impacto real.",
+  "team": {
+    "gabriel": {
+      "name": "Gabriel Sávio",
+      "role": "CEO",
+      "desc": "Indicado para o prêmio MIT Under 35, palestrante da UNESCO, Empreendedor e Inovador de Destaque na Climate iArea."
+    },
+    "bruce": {
+      "name": "Bruce Ford",
+      "role": "Diretor de Operações (CSO)",
+      "desc": "22 anos como Presidente da CliDaaS, ex-meteorologista da Marinha dos EUA e líder em clima e previsões de longo prazo."
+    },
+    "jefferson": {
+      "name": "Jefferson Oliveira",
+      "role": "CKO",
+      "desc": "Mais de 20 anos de experiência no Corpo de Bombeiros de SP e avaliador de qualidade de projetos para o governo de SP."
+    },
+    "renato": {
+      "name": "Renato Paes",
+      "role": "CTO",
+      "desc": "Mestre em Estatística pela UFSCar, ele já economizou mais de 20 milhões de dólares por meio de projetos implementados."
+    },
+    "kaushal": {
+      "name": "Kaushal Chokshi",
+      "role": "Conselheiro",
+      "desc": "Líder global, empreendedor serial, lançou IPO, estrategista em tecnologia, sustentabilidade e inovação."
+    }
+  }
+}

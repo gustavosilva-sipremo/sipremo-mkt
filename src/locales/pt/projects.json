@@ -1,0 +1,20 @@
+{
+  "title": "Nossas Soluções",
+  "subtitle": "A Sipremo preenche a lacuna entre previsões operacionais e planejamento climático de longo prazo, permitindo decisões em todos os horizontes temporais com inteligência preditiva.",
+  "platformBadge": "Sipremo Platform",
+  "tagline": "Antecipe riscos. Reduza perdas. Desenvolva resiliência.",
+  "solutions": {
+    "climate-intelligence": {
+      "title": "Inteligência Climática Completa",
+      "description": "A única informação climática que abrange de 1 hora até anos. A Sipremo conecta previsões operacionais e planejamento de longo prazo com alertas em tempo real e modelos preditivos baseados em 16 anos de tecnologia validada."
+    },
+    "risk-anticipation": {
+      "title": "Antecipação de Riscos",
+      "description": "Mais de 70% do PIB global é sensível ao clima. Nossa plataforma ajuda organizações a antecipar riscos, reduzir perdas e proteger ativos com inteligência adaptável para qualquer setor e região."
+    },
+    "operational-resilience": {
+      "title": "Resiliência Operacional & ESG",
+      "description": "Combine alertas antecipados, previsões integradas e análise contínua para manter operações estáveis, apoiar metas ESG e tomar decisões mais seguras em ambientes voláteis."
+    }
+  }
+}

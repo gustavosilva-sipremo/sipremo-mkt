@@ -2,25 +2,6 @@
 @import "tailwindcss";
 
 /* =========================
-   FONTS
-========================= */
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf")
-    format("truetype");
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* =========================
    DARK MODE
 ========================= */
 @custom-variant dark (&:is(.dark *));
@@ -44,7 +25,7 @@
   --border: oklch(0.8901 0.0199 221.5218);
   --ring: oklch(0.633 0.1131 228.0346);
 
-  --font-sans: Inter, system-ui, sans-serif;
+  --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
   --radius: 0.5rem;
 
   --tracking-normal: -0.01em;
@@ -88,11 +69,11 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease,
-      border-color 0.2s ease,
-      transform 0.2s ease;
+  }
+
+  a,
+  button {
+    @apply transition-colors duration-200;
   }
 
   html {
@@ -173,6 +154,25 @@
 
 .fade-in {
   animation: fade-in 0.5s ease;
+}
+
+@keyframes logo-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-logo-scroll {
+  animation: logo-scroll 25s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-logo-scroll {
+    animation: none;
+  }
 }
 
 /* =========================

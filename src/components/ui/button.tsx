@@ -19,6 +19,8 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        cta:
+          "h-auto gap-2 rounded-lg bg-primary px-8 py-6 text-lg font-semibold tracking-wide text-primary-foreground shadow-md shadow-primary/20 transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 active:scale-95 active:shadow-sm md:text-xl",
       },
       size: {
         default:
@@ -64,4 +66,5 @@ function Button({
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- shadcn pattern
 export { Button, buttonVariants }

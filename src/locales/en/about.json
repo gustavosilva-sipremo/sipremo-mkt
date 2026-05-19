@@ -1,0 +1,40 @@
+{
+  "title": "We are Sipremo",
+  "tagline": "Technology that predicts the future to secure our present.",
+  "p1": "Sipremo is the world's first complete climate intelligence platform. We integrate short-, medium-, and long-term forecasts in a single solution, enabling strategic decisions across different horizons.",
+  "p2": "Our technology combines operational experience with advanced climate models, turning complex data into actionable insights.",
+  "p3": "We help organizations operate with greater safety, efficiency, and predictability amid dynamic climate scenarios.",
+  "capabilitiesTitle": "Platform capabilities",
+  "cap1": "Reduced operational losses with short-term forecasts",
+  "cap2": "Greater predictability across supply chains",
+  "cap3": "Strategic planning and climate risk mitigation",
+  "teamTitle": "Our Leadership",
+  "teamSubtitle": "An experienced, multidisciplinary team focused on innovation, science, and real impact.",
+  "team": {
+    "gabriel": {
+      "name": "Gabriel Sávio",
+      "role": "CEO",
+      "desc": "MIT Under 35 award nominee, UNESCO speaker, Entrepreneur and Featured Innovator at Climate iArea."
+    },
+    "bruce": {
+      "name": "Bruce Ford",
+      "role": "Chief Operations Officer (CSO)",
+      "desc": "22 years as President of CliDaaS, former U.S. Navy meteorologist and leader in climate and long-range forecasting."
+    },
+    "jefferson": {
+      "name": "Jefferson Oliveira",
+      "role": "CKO",
+      "desc": "Over 20 years with the São Paulo Fire Department and project quality evaluator for the São Paulo government."
+    },
+    "renato": {
+      "name": "Renato Paes",
+      "role": "CTO",
+      "desc": "Master's in Statistics from UFSCar; has saved over $20 million through implemented projects."
+    },
+    "kaushal": {
+      "name": "Kaushal Chokshi",
+      "role": "Advisor",
+      "desc": "Global leader, serial entrepreneur, IPO founder, strategist in technology, sustainability, and innovation."
+    }
+  }
+}

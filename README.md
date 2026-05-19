@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# Sipremo — Site institucional
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Landing page da Sipremo em React 19, Vite, TypeScript, Tailwind CSS 4 e shadcn/ui.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Comando | Descrição |
+|---------|-----------|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm run preview` | Preview do build |
+| `npm run lint` | ESLint |
+| `node scripts/generate-sitemap.mjs` | Regenera `public/sitemap.xml` e `robots.txt` |
 
-## React Compiler
+## Variáveis de ambiente
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Copie `.env.example` para `.env`:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+VITE_SITE_URL=https://sipremo.com
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Vídeo do Hero
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+O arquivo `public/videos/video_bg.mp4` deve ser comprimido para produção (meta: &lt; 5 MB). Com ffmpeg:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+ffmpeg -i public/videos/video_bg.mp4 -vf scale=1280:-2 -c:v libx264 -crf 28 -preset slow -an -movflags +faststart public/videos/video_bg.new.mp4
+ffmpeg -i public/videos/video_bg.new.mp4 -c:v libvpx-vp9 -crf 35 -b:v 0 -an public/videos/video_bg.webm
+ffmpeg -ss 1 -i public/videos/video_bg.new.mp4 -vframes 1 public/images/hero-poster.webp
+mv public/videos/video_bg.new.mp4 public/videos/video_bg.mp4
 ```
+
+## Internacionalização
+
+PT/EN via `react-i18next`. Traduções em `src/locales/{pt,en}/*.json`.
+
+## Formulário de contato
+
+Validação no cliente em `src/lib/contact.ts`. A função `submitContactForm` aguarda integração com API (`POST /api/contact`).
+
+## Deploy e segurança
+
+Configure no host (Cloudflare, Nginx, Vercel):
+
+- HTTPS obrigatório
+- Headers: `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`
+- CSP exemplo (ajuste conforme analytics):
+
+```
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://tile.openstreetmap.org; font-src 'self'; media-src 'self';
+```
+
+Tiles OSM: respeite a [política de uso](https://operations.osmfoundation.org/policies/tiles/). Em alto tráfego, use tile server próprio.
+
+## SEO
+
+- Metadados dinâmicos: `src/components/seo/SeoHead.tsx`
+- `public/robots.txt`, `public/sitemap.xml`, `public/og-image.jpg`
+- Valide JSON-LD em [Rich Results Test](https://search.google.com/test/rich-results)

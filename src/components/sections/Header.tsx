@@ -149,8 +149,8 @@ export default function Header() {
                 </AnimatePresence>
               </div>
 
-              <a href="#contact" className="hidden md:block">
-                <ContactCta />
+              <a href="#contact" className="hidden cursor-pointer md:block">
+                <ContactCta appearance={scrolled ? "header" : "headerOnDark"} />
               </a>
 
               <button
@@ -225,8 +225,12 @@ export default function Header() {
 
               <div className="my-2 border-t border-border/40" />
 
-              <a href="#contact" onClick={() => setMobileOpen(false)}>
-                <ContactCta fullWidth />
+              <a
+                href="#contact"
+                className="cursor-pointer"
+                onClick={() => setMobileOpen(false)}
+              >
+                <ContactCta fullWidth appearance="header" />
               </a>
             </motion.div>
           </>

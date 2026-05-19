@@ -26,7 +26,7 @@ export default function ScrollToTop() {
       aria-label={t("scrollToTop")}
       title={t("scrollToTop")}
       className={cn(
-        "fixed right-6 bottom-6 z-40 flex h-12 w-12 items-center justify-center rounded-full",
+        "fixed right-6 bottom-6 z-40 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full",
         "border border-border/60 bg-background/90 text-primary shadow-lg backdrop-blur-md",
         "transition-all duration-300 ease-out",
         "hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-xl",

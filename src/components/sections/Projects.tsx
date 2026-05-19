@@ -82,7 +82,7 @@ export default function Projects() {
   }, [isHovering]);
 
   return (
-    <section id="projects" className="relative mx-auto max-w-7xl px-6 py-28">
+    <section id="solutions" className="relative mx-auto max-w-7xl px-6 py-28">
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-background via-muted/20 to-background" />
 
       <div className="mb-16 text-center">

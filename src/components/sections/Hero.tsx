@@ -146,7 +146,10 @@ export default function Hero() {
   const motionVariants = reducedMotion ? staticVariants : wobbly;
 
   return (
-    <section className="relative isolate flex min-h-svh w-full items-center overflow-hidden bg-slate-950">
+    <section
+      id="hero"
+      className="relative isolate flex min-h-svh w-full items-center overflow-hidden bg-slate-950"
+    >
       {/* Dark fallback — always visible until video paints */}
       <div
         className="absolute inset-0 z-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-800"
@@ -236,7 +239,7 @@ export default function Hero() {
               variants={motionVariants}
               className="mt-8 flex flex-col gap-4 sm:flex-row"
             >
-              <a href="#contact">
+              <a href="#solutions" className="inline-flex cursor-pointer">
                 <LearnCta />
               </a>
             </m.div>

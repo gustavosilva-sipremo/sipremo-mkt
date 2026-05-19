@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
+import ScrollToTop from "@/components/others/ScrollToTop";
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import { SeoHead } from "@/components/seo/SeoHead";
@@ -40,6 +41,7 @@ function App() {
           <Footer />
         </Suspense>
       </main>
+      <ScrollToTop />
     </>
   );
 }

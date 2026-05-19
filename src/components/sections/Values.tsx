@@ -13,7 +13,7 @@ export default function Values() {
   return (
     <section
       id="values"
-      className="relative isolate mx-auto max-w-7xl overflow-hidden px-6 pt-12 pb-22"
+      className="relative isolate mx-auto max-w-7xl overflow-hidden px-4 pt-12 pb-20 sm:px-6 sm:pb-22"
     >
       <HexField
         variant="onLight"

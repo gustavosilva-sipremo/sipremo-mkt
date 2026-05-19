@@ -40,7 +40,12 @@ export default function Header() {
     document.addEventListener("keydown", onKeyDown);
     const firstLink = drawerRef.current?.querySelector("a");
     (firstLink as HTMLElement | null)?.focus();
-    return () => document.removeEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
   }, [mobileOpen]);
 
   const scrolled = scrollY > 40;
@@ -67,7 +72,7 @@ export default function Header() {
               <img
                 src="/images/sipremo_logo.svg"
                 alt="Sipremo"
-                className="h-14 w-auto select-none transition-all duration-500 sm:h-16 md:h-20"
+                className="h-11 w-auto max-w-[140px] select-none transition-all duration-500 sm:h-16 sm:max-w-none md:h-20"
                 style={{ filter: `invert(${1 - progress})` }}
               />
             </a>
@@ -191,12 +196,12 @@ export default function Header() {
               role="dialog"
               aria-modal="true"
               aria-label={t("common:menu")}
-              initial={{ x: 300, opacity: 0 }}
+              initial={{ x: "100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ x: 300, opacity: 0 }}
+              exit={{ x: "100%", opacity: 0 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
               className={cn(
-                "fixed top-0 right-0 z-50 flex h-full w-80 flex-col gap-6 border-l border-border/40 bg-background/70 p-6 shadow-2xl backdrop-blur-xl sm:w-96",
+                "fixed top-0 right-0 z-50 flex h-full w-[min(100vw,20rem)] flex-col gap-6 border-l border-border/40 bg-background/70 p-6 shadow-2xl backdrop-blur-xl sm:w-96",
               )}
             >
               <div className="flex items-center justify-between">

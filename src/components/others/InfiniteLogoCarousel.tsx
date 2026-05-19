@@ -1,4 +1,5 @@
 import { logoItems } from "@/content/logos";
+import { cn } from "@/lib/utils";
 import {
   Briefcase,
   Building,
@@ -9,6 +10,7 @@ import {
   Warehouse,
   type LucideIcon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const iconMap: Record<string, LucideIcon> = {
   Building2,
@@ -21,23 +23,38 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export default function InfiniteLogoCarousel() {
+  const { t } = useTranslation("common");
   const items = [...logoItems, ...logoItems];
 
   return (
-    <div className="absolute w-full overflow-hidden bg-transparent py-10" aria-hidden>
-      <div className="relative flex w-max animate-logo-scroll gap-12">
-        {items.map((item, index) => {
-          const Icon = iconMap[item.icon] ?? Building2;
-          return (
-            <div
-              key={`${item.id}-${index}`}
-              className="flex h-20 min-w-[160px] items-center justify-center rounded-xl border backdrop-blur-md shadow-sm"
-            >
-              <Icon className="h-8 w-8 text-muted-foreground" />
-            </div>
-          );
-        })}
+    <section
+      className="relative z-20 overflow-hidden border-b border-border/50 bg-background"
+      aria-label={t("logosMarquee")}
+    >
+      <div className="logo-marquee-mask py-8 sm:py-10">
+        <div className="flex w-max animate-logo-scroll items-center gap-5 sm:gap-8" aria-hidden>
+          {items.map((item, index) => {
+            const Icon = iconMap[item.icon] ?? Building2;
+            return (
+              <div
+                key={`${item.id}-${index}`}
+                className={cn(
+                  "flex h-14 w-[8.5rem] shrink-0 items-center justify-center rounded-xl",
+                  "border border-border/70 bg-background shadow-sm",
+                  "transition-shadow duration-300 hover:shadow-md",
+                  "sm:h-16 sm:w-40",
+                )}
+              >
+                <Icon
+                  className="h-7 w-7 text-foreground/45 sm:h-8 sm:w-8"
+                  strokeWidth={1.5}
+                  aria-hidden
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

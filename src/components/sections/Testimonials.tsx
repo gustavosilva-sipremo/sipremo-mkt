@@ -9,8 +9,8 @@ export default function Testimonials() {
   const { t } = useTranslation("testimonials");
 
   return (
-    <section id="testimonials" className="relative isolate overflow-hidden py-24">
-      <div className="absolute inset-0 -z-10 left-1/2 w-screen -translate-x-1/2 bg-[#05060a]" />
+    <section id="testimonials" className="relative isolate overflow-hidden py-20 sm:py-24">
+      <div className="absolute inset-0 -z-10 bg-[#05060a]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_0)] bg-size-[22px_22px] opacity-40" />
       <div className="absolute -top-40 left-1/2 -z-10 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
 
@@ -20,9 +20,9 @@ export default function Testimonials() {
         layer="above-background"
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mb-20 text-center">
-          <h2 className="mb-5 text-3xl font-bold text-secondary md:text-5xl">{t("title")}</h2>
+          <h2 className="mb-5 text-2xl font-bold text-secondary sm:text-3xl md:text-5xl">{t("title")}</h2>
           <p className="mx-auto max-w-3xl text-secondary/80">{t("subtitle")}</p>
         </div>
 

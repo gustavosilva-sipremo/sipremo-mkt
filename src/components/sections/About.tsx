@@ -39,7 +39,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative mx-auto max-w-7xl overflow-hidden px-4 pt-48 pb-20 sm:px-6"
+      className="relative mx-auto max-w-7xl overflow-hidden px-4 pt-16 pb-16 sm:px-6 sm:pt-20 sm:pb-20 md:pt-24"
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-size-[20px_20px]" />
       <HexField variant="onLight" hexes={aboutHexes} />

@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer className="relative mt-18 overflow-hidden bg-linear-to-b from-background to-secondary-foreground/90 pt-32">
-      <div className="relative mx-auto max-w-7xl px-6 py-18">
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18">
         <div className="grid items-start gap-14 md:grid-cols-2">
           <div className="space-y-5">
             <img

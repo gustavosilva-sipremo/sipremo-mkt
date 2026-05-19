@@ -47,7 +47,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative w-full overflow-hidden py-28">
+    <section id="contact" className="relative w-full overflow-hidden py-20 sm:py-28">
       <div className="absolute inset-0 -z-30 bg-linear-to-b from-background via-muted/20 to-background" />
       <HexField variant="muted" hexes={contactHexes} className="-z-10" />
 
@@ -61,10 +61,10 @@ export default function Contact() {
         <Watermark />
       </motion.div>
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 px-6 md:grid-cols-2">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 sm:gap-16 sm:px-6 md:grid-cols-2">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           className="space-y-6"
@@ -72,7 +72,7 @@ export default function Contact() {
           <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             {t("badge")}
           </div>
-          <h2 className="text-4xl leading-tight font-bold md:text-5xl">{t("title")}</h2>
+          <h2 className="text-2xl leading-tight font-bold sm:text-3xl md:text-5xl">{t("title")}</h2>
           <p className="max-w-md leading-relaxed text-muted-foreground">{t("description")}</p>
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li>✔ {t("benefit1")}</li>
@@ -82,11 +82,11 @@ export default function Contact() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="relative rounded-xl border border-border bg-background p-8 shadow-xl backdrop-blur-sm"
+          className="relative rounded-xl border border-border bg-background p-5 shadow-xl backdrop-blur-sm sm:p-8"
         >
           <form
             className="space-y-5"
@@ -103,7 +103,7 @@ export default function Contact() {
               tabIndex={-1}
               autoComplete="off"
               aria-hidden
-              className="absolute -left-[9999px] h-0 w-0 opacity-0"
+              className="sr-only"
             />
 
             <div>

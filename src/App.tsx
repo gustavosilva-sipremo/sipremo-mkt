@@ -29,10 +29,12 @@ function App() {
     <>
       <SeoHead />
       <Header />
-      <main>
+      <main className="w-full max-w-full overflow-x-clip">
         <Hero />
-        <Suspense fallback={<SectionFallback />}>
+        <Suspense fallback={null}>
           <InfiniteLogoCarousel />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
           <About />
           <Values />
           <Testimonials />

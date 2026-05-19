@@ -1,6 +1,7 @@
 import HexDecoration from "@/components/others/HexDecoration";
 import { heroHexes } from "@/content/hexLayouts";
 import { LearnCta } from "@/components/ui/ContactCta";
+import { useHeroVideo } from "@/hooks/useHeroVideo";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { Cpu } from "lucide-react";
 import {
@@ -11,7 +12,7 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 const VIDEO_SRC = `${import.meta.env.BASE_URL}videos/video_bg.mp4`;
@@ -39,58 +40,12 @@ export default function Hero() {
   const { t } = useTranslation("hero");
   const reducedMotion = usePrefersReducedMotion();
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const flashTriggeredRef = useRef(false);
-  const [flash, setFlash] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
+  const { ready: videoReady, opacity: videoOpacity } = useHeroVideo(videoRef);
 
   const { scrollY } = useScroll();
   const parallaxStrong = useTransform(scrollY, [0, 1000], [0, 40]);
   const parallaxLight = useTransform(scrollY, [0, 1000], [0, 25]);
   const parallaxOffsets = [parallaxStrong, parallaxLight, parallaxLight, parallaxStrong];
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const tryPlay = () => {
-      void video.play().catch(() => {
-        /* autoplay blocked */
-      });
-    };
-
-    const onCanPlay = () => {
-      setVideoReady(true);
-      if (!reducedMotion) tryPlay();
-    };
-
-    video.addEventListener("canplay", onCanPlay);
-    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-      onCanPlay();
-    }
-
-    if (reducedMotion) {
-      return () => video.removeEventListener("canplay", onCanPlay);
-    }
-
-    const onTimeUpdate = () => {
-      if (!video.duration) return;
-      const remaining = video.duration - video.currentTime;
-      if (remaining < 0.4 && !flashTriggeredRef.current) {
-        flashTriggeredRef.current = true;
-        setFlash(true);
-        window.setTimeout(() => {
-          setFlash(false);
-          flashTriggeredRef.current = false;
-        }, 250);
-      }
-    };
-
-    video.addEventListener("timeupdate", onTimeUpdate);
-    return () => {
-      video.removeEventListener("canplay", onCanPlay);
-      video.removeEventListener("timeupdate", onTimeUpdate);
-    };
-  }, [reducedMotion]);
 
   const motionVariants = reducedMotion ? staticVariants : wobbly;
 
@@ -104,38 +59,35 @@ export default function Hero() {
         aria-hidden
       />
 
-      <video
-        ref={videoRef}
-        src={VIDEO_SRC}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
+      <div className="absolute inset-0 z-1 overflow-hidden" aria-hidden>
+        <video
+          ref={videoRef}
+          src={VIDEO_SRC}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          disablePictureInPicture
+          className="hero-video h-full w-full object-cover"
+          style={{
+            opacity: videoReady ? videoOpacity : 0,
+            filter: "brightness(0.58) contrast(1.12) saturate(1.05)",
+          }}
+        />
+      </div>
+
+      <div
+        className="absolute inset-0 z-3 bg-linear-to-b from-black/50 via-black/55 to-black/70"
         aria-hidden
-        className={`absolute inset-0 z-[1] h-full w-full object-cover transition-opacity duration-700 ${
-          videoReady ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          filter: "brightness(0.6) contrast(1.2) saturate(1.1)",
-        }}
       />
 
-      {flash && (
-        <div
-          className="pointer-events-none absolute inset-0 z-[2] bg-white/20"
-          aria-hidden
-        />
-      )}
-
-      <div className="absolute inset-0 z-[3] bg-black/60" aria-hidden />
-
-      <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 z-4" aria-hidden>
         <div className="absolute top-[15%] left-[10%] h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute bottom-[10%] right-[10%] h-72 w-72 rounded-full bg-white/10 blur-3xl" />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 z-4" aria-hidden>
         {heroHexes.map((hex, index) => (
           <HexDecoration
             key={hex.className}
@@ -150,7 +102,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="relative z-20 mx-auto w-full max-w-7xl px-6 md:px-12">
+      <div className="relative z-20 mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-12">
         <LazyMotion features={domAnimation}>
           <m.div
             variants={container}
@@ -168,7 +120,7 @@ export default function Hero() {
 
             <m.h1
               variants={motionVariants}
-              className="text-4xl font-bold leading-tight text-white md:text-6xl"
+              className="text-3xl font-bold leading-tight text-balance text-white sm:text-4xl md:text-6xl"
             >
               {t("title")}
             </m.h1>

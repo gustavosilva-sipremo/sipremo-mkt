@@ -16,8 +16,8 @@ export const aboutHexes: HexPlacement[] = [
 
 /** Só cantos fora da área dos cards (título e bloco inferior) */
 export const valuesCornerHexes: HexPlacement[] = [
-  { className: "top-0 -left-4 sm:top-2 sm:left-0", size: "xl", strokeWidth: 3 },
-  { className: "bottom-0 -right-4 sm:bottom-4 sm:right-0", size: "lg", strokeWidth: 2.5 },
+  { className: "top-0 left-0 sm:top-2", size: "xl", strokeWidth: 3 },
+  { className: "bottom-0 right-0 sm:bottom-4", size: "lg", strokeWidth: 2.5 },
 ];
 
 /** Laterais em largura total da section (margens escuras) */

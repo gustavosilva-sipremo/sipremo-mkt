@@ -82,11 +82,11 @@ export default function Projects() {
   }, [isHovering]);
 
   return (
-    <section id="solutions" className="relative mx-auto max-w-7xl px-6 py-28">
+    <section id="solutions" className="relative mx-auto max-w-7xl overflow-hidden px-4 py-20 sm:px-6 sm:py-28">
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-background via-muted/20 to-background" />
 
       <div className="mb-16 text-center">
-        <h2 className="mb-5 text-4xl font-bold md:text-5xl">{t("title")}</h2>
+        <h2 className="mb-5 text-2xl font-bold sm:text-3xl md:text-5xl">{t("title")}</h2>
         <p className="mx-auto max-w-3xl leading-relaxed text-muted-foreground">{t("subtitle")}</p>
       </div>
 
@@ -112,9 +112,9 @@ export default function Projects() {
         <AnimatePresence mode="wait">
           <motion.div
             key={current.id}
-            initial={{ opacity: 0, x: -25 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 25 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.4 }}
             className="space-y-6"
           >
@@ -150,7 +150,7 @@ export default function Projects() {
                 image={current.image}
                 title={t(`solutions.${current.id}.title`)}
               />
-              <div className="absolute -inset-8 -z-10 rounded-full bg-primary/10 blur-3xl" />
+              <div className="absolute -inset-4 -z-10 rounded-full bg-primary/10 blur-3xl sm:-inset-8" aria-hidden />
             </div>
           </motion.div>
         </AnimatePresence>

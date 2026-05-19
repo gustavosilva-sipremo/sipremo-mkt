@@ -29,23 +29,38 @@ export function computeLoopOpacity(currentTime: number, duration: number): numbe
   return 1;
 }
 
-export function useHeroVideo(videoRef: RefObject<HTMLVideoElement | null>) {
+type UseHeroVideoOptions = {
+  /** When false, hook is a no-op (mobile / reduced motion). */
+  enabled: boolean;
+};
+
+export function useHeroVideo(
+  videoRef: RefObject<HTMLVideoElement | null>,
+  { enabled }: UseHeroVideoOptions,
+) {
   const reducedMotion = usePrefersReducedMotion();
   const [ready, setReady] = useState(false);
-  const [opacity, setOpacity] = useState(0);
+
+  const active = enabled && !reducedMotion;
 
   useEffect(() => {
+    if (!active) {
+      setReady(false);
+      return;
+    }
+
     const video = videoRef.current;
     if (!video) return;
 
     let rafId = 0;
 
+    const applyOpacity = (value: number) => {
+      video.style.opacity = String(value);
+    };
+
     const updateOpacity = () => {
       if (!video.duration) return;
-      const next = reducedMotion
-        ? 1
-        : computeLoopOpacity(video.currentTime, video.duration);
-      setOpacity(next);
+      applyOpacity(computeLoopOpacity(video.currentTime, video.duration));
     };
 
     const tick = () => {
@@ -64,11 +79,9 @@ export function useHeroVideo(videoRef: RefObject<HTMLVideoElement | null>) {
     };
 
     const tryPlay = () => {
-      if (!reducedMotion) {
-        void video.play().catch(() => {
-          /* autoplay blocked */
-        });
-      }
+      void video.play().catch(() => {
+        /* autoplay blocked */
+      });
     };
 
     const onCanPlay = () => {
@@ -116,10 +129,9 @@ export function useHeroVideo(videoRef: RefObject<HTMLVideoElement | null>) {
       video.removeEventListener("pause", onPause);
       video.removeEventListener("seeked", onSeeked);
       observer.disconnect();
+      applyOpacity(0);
     };
-  }, [reducedMotion, videoRef]);
+  }, [active, videoRef]);
 
-  const visibleOpacity = ready ? opacity : 0;
-
-  return { ready, opacity: visibleOpacity, reducedMotion };
+  return { ready: active && ready, active };
 }

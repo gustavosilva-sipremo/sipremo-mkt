@@ -1,10 +1,33 @@
 import { solutions } from "@/content/solutions";
+import { useIsMobile, usePointerFine } from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+function SolutionImage({ image, title }: { image: string; title: string }) {
+  return (
+    <>
+      <div className="flex items-center gap-2 border-b border-border bg-muted/40 px-4 py-2">
+        <div className="h-3 w-3 rounded-full bg-red-400" />
+        <div className="h-3 w-3 rounded-full bg-yellow-400" />
+        <div className="h-3 w-3 rounded-full bg-green-400" />
+      </div>
+      <img
+        src={image}
+        alt={title}
+        width={520}
+        height={300}
+        loading="lazy"
+        decoding="async"
+        className="h-[300px] w-full select-none object-cover"
+      />
+    </>
+  );
+}
+
 function TiltCard({ image, title }: { image: string; title: string }) {
+  const canTilt = usePointerFine();
   const ref = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const [transform, setTransform] = useState({ rotateX: 0, rotateY: 0 });
@@ -31,6 +54,14 @@ function TiltCard({ image, title }: { image: string; title: string }) {
     setTransform({ rotateX: 0, rotateY: 0 });
   }
 
+  if (!canTilt) {
+    return (
+      <div className="overflow-hidden rounded-xl border border-border bg-background shadow-2xl">
+        <SolutionImage image={image} title={title} />
+      </div>
+    );
+  }
+
   return (
     <motion.div
       ref={ref}
@@ -44,26 +75,14 @@ function TiltCard({ image, title }: { image: string; title: string }) {
       className="transform-gpu overflow-hidden rounded-xl border border-border bg-background shadow-2xl"
       style={{ transformStyle: "preserve-3d" }}
     >
-      <div className="flex items-center gap-2 border-b border-border bg-muted/40 px-4 py-2">
-        <div className="h-3 w-3 rounded-full bg-red-400" />
-        <div className="h-3 w-3 rounded-full bg-yellow-400" />
-        <div className="h-3 w-3 rounded-full bg-green-400" />
-      </div>
-      <img
-        src={image}
-        alt={title}
-        width={520}
-        height={300}
-        loading="lazy"
-        decoding="async"
-        className="h-[300px] w-full select-none object-cover"
-      />
+      <SolutionImage image={image} title={title} />
     </motion.div>
   );
 }
 
 export default function Projects() {
   const { t } = useTranslation("projects");
+  const isMobile = useIsMobile();
   const [active, setActive] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -112,9 +131,9 @@ export default function Projects() {
         <AnimatePresence mode="wait">
           <motion.div
             key={current.id}
-            initial={{ opacity: 0, y: 16 }}
+            initial={isMobile ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
+            exit={isMobile ? undefined : { opacity: 0, y: -16 }}
             transition={{ duration: 0.4 }}
             className="space-y-6"
           >
@@ -134,9 +153,9 @@ export default function Projects() {
         <AnimatePresence mode="wait">
           <motion.div
             key={current.id}
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={isMobile ? false : { opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.96 }}
+            exit={isMobile ? undefined : { opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.4 }}
             className="flex justify-center"
           >

@@ -1,7 +1,7 @@
 import HexDecoration from "@/components/others/HexDecoration";
 import { heroHexes } from "@/content/hexLayouts";
 import { LearnCta } from "@/components/ui/ContactCta";
-import { useHeroVideo } from "@/hooks/useHeroVideo";
+import { useIsMobile } from "@/hooks/useMediaQuery";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { Cpu } from "lucide-react";
 import {
@@ -12,10 +12,10 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
-import { useRef } from "react";
+import { lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 
-const VIDEO_SRC = `${import.meta.env.BASE_URL}videos/video_bg.mp4`;
+const HeroVideo = lazy(() => import("@/components/sections/HeroVideo"));
 
 const container: Variants = {
   hidden: {},
@@ -38,16 +38,19 @@ const staticVariants: Variants = {
 
 export default function Hero() {
   const { t } = useTranslation("hero");
+  const isMobile = useIsMobile();
   const reducedMotion = usePrefersReducedMotion();
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const { ready: videoReady, opacity: videoOpacity } = useHeroVideo(videoRef);
+  const loadVideo = !isMobile && !reducedMotion;
 
   const { scrollY } = useScroll();
   const parallaxStrong = useTransform(scrollY, [0, 1000], [0, 40]);
   const parallaxLight = useTransform(scrollY, [0, 1000], [0, 25]);
-  const parallaxOffsets = [parallaxStrong, parallaxLight, parallaxLight, parallaxStrong];
+  const parallaxOffsets = loadVideo
+    ? [parallaxStrong, parallaxLight, parallaxLight, parallaxStrong]
+    : [undefined, undefined, undefined, undefined];
 
-  const motionVariants = reducedMotion ? staticVariants : wobbly;
+  const motionVariants =
+    reducedMotion || isMobile ? staticVariants : wobbly;
 
   return (
     <section
@@ -59,23 +62,18 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="absolute inset-0 z-1 overflow-hidden" aria-hidden>
-        <video
-          ref={videoRef}
-          src={VIDEO_SRC}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          disablePictureInPicture
-          className="hero-video h-full w-full object-cover"
-          style={{
-            opacity: videoReady ? videoOpacity : 0,
-            filter: "brightness(0.58) contrast(1.12) saturate(1.05)",
-          }}
+      {isMobile && (
+        <div
+          className="absolute inset-0 z-1 bg-[radial-gradient(ellipse_at_30%_20%,rgba(56,189,248,0.12),transparent_50%),radial-gradient(ellipse_at_70%_80%,rgba(99,102,241,0.1),transparent_45%)]"
+          aria-hidden
         />
-      </div>
+      )}
+
+      {loadVideo && (
+        <Suspense fallback={null}>
+          <HeroVideo />
+        </Suspense>
+      )}
 
       <div
         className="absolute inset-0 z-3 bg-linear-to-b from-black/50 via-black/55 to-black/70"
@@ -83,8 +81,12 @@ export default function Hero() {
       />
 
       <div className="pointer-events-none absolute inset-0 z-4" aria-hidden>
-        <div className="absolute top-[15%] left-[10%] h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-        <div className="absolute bottom-[10%] right-[10%] h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+        {!isMobile && (
+          <>
+            <div className="absolute top-[15%] left-[10%] h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+            <div className="absolute bottom-[10%] right-[10%] h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          </>
+        )}
       </div>
 
       <div className="pointer-events-none absolute inset-0 z-4" aria-hidden>
@@ -93,7 +95,7 @@ export default function Hero() {
             key={hex.className}
             variant="onDark"
             size={hex.size}
-            animated={reducedMotion ? "none" : "float"}
+            animated={reducedMotion || isMobile ? "none" : "float"}
             float={hex.float}
             delay={hex.delay}
             parallaxY={parallaxOffsets[index]}

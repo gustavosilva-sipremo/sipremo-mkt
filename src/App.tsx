@@ -5,9 +5,7 @@ import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import { SeoHead } from "@/components/seo/SeoHead";
 
-const InfiniteLogoCarousel = lazy(
-  () => import("@/components/others/InfiniteLogoCarousel"),
-);
+const LogoMarquee = lazy(() => import("@/components/sections/LogoMarquee"));
 const About = lazy(() => import("@/components/sections/About"));
 const Values = lazy(() => import("@/components/sections/Values"));
 const Testimonials = lazy(() => import("@/components/sections/Testimonials"));
@@ -32,7 +30,7 @@ function App() {
       <main className="w-full max-w-full overflow-x-clip">
         <Hero />
         <Suspense fallback={null}>
-          <InfiniteLogoCarousel />
+          <LogoMarquee />
         </Suspense>
         <Suspense fallback={<SectionFallback />}>
           <About />

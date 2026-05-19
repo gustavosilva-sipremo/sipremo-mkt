@@ -3,7 +3,8 @@ import { Watermark } from "@/components/others/Watermark";
 import { contactHexes } from "@/content/hexLayouts";
 import { submitContactForm, type ContactFormPayload } from "@/lib/contact";
 import { validateContactForm } from "@/lib/validateContact";
-import { motion } from "framer-motion";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +19,7 @@ const initialForm: FormState = {
 
 export default function Contact() {
   const { t } = useTranslation("contact");
+  const isMobile = useIsMobile();
   const [form, setForm] = useState<FormState>(initialForm);
   const [honeypot, setHoneypot] = useState("");
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
@@ -51,24 +53,19 @@ export default function Contact() {
       <div className="absolute inset-0 -z-30 bg-linear-to-b from-background via-muted/20 to-background" />
       <HexField variant="muted" hexes={contactHexes} className="-z-10" />
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="pointer-events-none absolute inset-0 -z-20"
-      >
-        <Watermark />
-      </motion.div>
+      {!isMobile && (
+        <RevealOnScroll
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="pointer-events-none absolute inset-0 -z-20"
+        >
+          <Watermark />
+        </RevealOnScroll>
+      )}
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 sm:gap-16 sm:px-6 md:grid-cols-2">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="space-y-6"
-        >
+        <RevealOnScroll className="space-y-6">
           <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             {t("badge")}
           </div>
@@ -79,15 +76,9 @@ export default function Contact() {
             <li>✔ {t("benefit2")}</li>
             <li>✔ {t("benefit3")}</li>
           </ul>
-        </motion.div>
+        </RevealOnScroll>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="relative rounded-xl border border-border bg-background p-5 shadow-xl backdrop-blur-sm sm:p-8"
-        >
+        <RevealOnScroll className="relative rounded-xl border border-border bg-background p-5 shadow-xl backdrop-blur-sm sm:p-8">
           <form
             className="space-y-5"
             onSubmit={(e) => {
@@ -213,7 +204,7 @@ export default function Contact() {
 
             <p className="text-center text-xs text-muted-foreground">{t("form.privacy")}</p>
           </form>
-        </motion.div>
+        </RevealOnScroll>
       </div>
     </section>
   );

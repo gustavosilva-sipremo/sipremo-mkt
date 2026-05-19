@@ -20,9 +20,17 @@ Copie `.env.example` para `.env`:
 VITE_SITE_URL=https://sipremo.com
 ```
 
-## Vídeo do Hero
+## Vídeo do Hero (somente desktop)
 
-O arquivo `public/videos/video_bg.mp4` deve ser comprimido para produção (meta: &lt; 5 MB). Com ffmpeg:
+Em viewports &lt; 768px o vídeo **não é carregado** (apenas gradiente). Em desktop, o player usa WebM + MP4 e poster opcional.
+
+Coloque em `public/`:
+
+- `videos/video_bg.mp4`
+- `videos/video_bg.webm` (recomendado)
+- `images/hero-poster.webp` (primeiro frame, LCP)
+
+Comprima para produção (meta: &lt; 3 MB no MP4). Com ffmpeg:
 
 ```bash
 ffmpeg -i public/videos/video_bg.mp4 -vf scale=1280:-2 -c:v libx264 -crf 28 -preset slow -an -movflags +faststart public/videos/video_bg.new.mp4

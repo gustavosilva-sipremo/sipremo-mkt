@@ -1,6 +1,7 @@
 import HexField from "@/components/others/HexField";
 import { valuesCornerHexes } from "@/content/hexLayouts";
 import { Card, CardContent } from "@/components/ui/card";
+import { useIsDesktop } from "@/hooks/useMediaQuery";
 import { DollarSign, Leaf, TrendingUp } from "lucide-react";
 import { lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,6 +10,7 @@ const ValuesMap = lazy(() => import("@/components/sections/ValuesMap"));
 
 export default function Values() {
   const { t } = useTranslation("values");
+  const isDesktop = useIsDesktop();
 
   return (
     <section
@@ -63,11 +65,13 @@ export default function Values() {
             <p className="text-lg leading-relaxed text-muted-foreground">{t("p2")}</p>
             <p className="text-lg font-medium leading-relaxed text-foreground">{t("p3")}</p>
           </div>
-          <div className="hidden h-[420px] overflow-hidden rounded-2xl border border-border/50 shadow-lg md:block">
-            <Suspense fallback={<div className="h-full w-full animate-pulse bg-muted" />}>
-              <ValuesMap />
-            </Suspense>
-          </div>
+          {isDesktop && (
+            <div className="h-[420px] overflow-hidden rounded-2xl border border-border/50 shadow-lg">
+              <Suspense fallback={<div className="h-full w-full animate-pulse bg-muted" />}>
+                <ValuesMap />
+              </Suspense>
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -87,13 +87,10 @@ export default function Testimonials() {
                   <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {t(`useCases.${item.id}.desc`)}
                   </p>
-                  <button
-                    type="button"
-                    className="flex w-fit cursor-pointer items-center gap-2 text-sm font-medium text-primary transition-all hover:gap-3"
-                  >
+                  <span className="flex w-fit items-center gap-2 text-sm font-medium text-primary/80">
                     {t("learnMore")}
                     <ArrowRight size={16} aria-hidden />
-                  </button>
+                  </span>
                 </div>
               </article>
             ))}

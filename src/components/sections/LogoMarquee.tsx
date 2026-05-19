@@ -22,7 +22,7 @@ const iconMap: Record<string, LucideIcon> = {
   Briefcase,
 };
 
-export default function InfiniteLogoCarousel() {
+export default function LogoMarquee() {
   const { t } = useTranslation("common");
   const items = [...logoItems, ...logoItems];
 
